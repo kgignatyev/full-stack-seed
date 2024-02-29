@@ -1,0 +1,201 @@
+openapi: 3.0.1
+info:
+  title: FSS Service API
+  description: ""
+  contact:
+    name: Konstantin Ignatyev.
+    url: http://kgionline.com/
+    email: kgignatyev@gmail.com
+  license:
+    name: BSD 3-Clause License
+    url: https://opensource.org/licenses/BSD-3-Clause
+  version: 1.0.0
+servers:
+  - url: /api
+tags:
+  - name: CompaniesServiceV1
+  - name: MetadataServiceV1
+security:
+  - bearerAuth: [ ]
+
+paths:
+
+
+
+  /v1/companies:
+    get:
+      tags:
+        - CompaniesServiceV1
+        - JobsServiceV1
+      summary: Get all companies
+      operationId: getAllCompanies
+      description: Get all companies which are available to the user
+      responses:
+        '200':
+          description: A list of companies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/v1.Company'
+    post:
+      tags:
+        - CompaniesServiceV1
+      summary: Create a new company
+      operationId: createCompany
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.Company'
+      responses:
+        '201':
+          description: A new company
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Company'
+
+  /v1/companies/{id}:
+    get:
+      tags:
+        - CompaniesServiceV1
+      summary: Get a company by id
+      operationId: getCompanyById
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: A company
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Company'
+    put:
+      tags:
+        - CompaniesServiceV1
+      summary: Update a company by id
+      operationId: updateCompanyById
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.Company'
+      responses:
+        '200':
+          description: Updated company
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Company'
+    delete:
+      tags:
+        - CompaniesServiceV1
+      summary: Delete a company by id
+      operationId: deleteCompanyById
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Company has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Status'
+
+
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    id:
+      name: id
+      schema:
+        type: string
+      in: path
+      required: true
+  schemas:
+    v1.Status:
+      type: object
+      properties:
+        responseCode:
+          type: string
+        description:
+          type: string
+      required: [ responseCode ]
+
+    v1.YN:
+      type: string
+      enum:
+        - Y
+        - N
+    v1.JobStatus:
+      type: string
+      enum:
+        - FOR_REVIEW
+        - REJECTED
+        - APPLIED
+
+    v1.Company:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        sourceId:
+          type: string
+        banned:
+          $ref: '#/components/schemas/v1.YN'
+        notes:
+          type: string
+      required:
+        - id
+        - name
+        - createdAt
+        - sourceId
+        - banned
+        - notes
+
+    v1.Job:
+      type: object
+      properties:
+          id:
+            type: string
+          name:
+            type: string
+          companyId:
+            type: string
+          createdAt:
+            type: string
+            format: date-time
+          sourceId:
+            type: string
+          status:
+            $ref: '#/components/schemas/v1.JobStatus'
+          notes:
+            type: string
+      required:
+            - id
+            - name
+            - companyId
+            - createdAt
+            - sourceId
+            - banned
+            - notes
+
+
+
