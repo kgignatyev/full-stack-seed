@@ -1,0 +1,52 @@
+logging:
+  level:
+    root: info
+    com:
+      kgignatyev: debug
+
+ladder:
+  simulate-errors: false
+
+
+spring:
+  #  cache:
+  #    jcache:
+  #     config: "classpath:ehcache.xml"
+
+  jmx:
+    enabled: false
+
+  datasource:
+    # this is needed to make sure the PostgreSQL data source is XA-aware
+    url: jdbc:postgresql://localhost:5432/fss?sslmode=disable
+    username: kgignatyev
+    password:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 10
+      connection-init-sql: SELECT 1
+      maximum-pool-size: 20
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /api/public/mgmt
+    health:
+      sensitive: false
+  simple:
+    metrics:
+      export:
+        enabled: true
+
+
+
