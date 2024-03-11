@@ -1,0 +1,15 @@
+<div class="row">
+        <div class="offset-md-3 col-md-4">
+          <dx-form [(formData)]="company"
+                   [colCount]="1"  >
+          </dx-form>
+        </div>
+</div>
+<div class="row">
+  <div class="offset-md-4 col-md-1">
+    <dx-button text="Cancel" (onClick)="cancel()"></dx-button>
+  </div>
+  <div class="col-md-1">
+    <dx-button text="Save" (onClick)="saveCompany()"></dx-button>
+  </div>
+</div>

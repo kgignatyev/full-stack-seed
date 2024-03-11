@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.2</version>
+        <version>3.2.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <name>fss Service</name>
@@ -21,7 +21,7 @@
         <jackson.version>2.16.1</jackson.version>
         <flyway.version>10.7.2</flyway.version>
         <kotlin.version>1.9.22</kotlin.version>
-        <kotlin-coroutines.version>1.7.3</kotlin-coroutines.version>
+        <kotlin-coroutines.version>1.8.0</kotlin-coroutines.version>
         <revision>1.0.0-SNAPSHOT</revision>
 <!--        <spring-security.version>5.8.7</spring-security.version>-->
         <spring-boot-run-jvm-extra></spring-boot-run-jvm-extra>
@@ -31,7 +31,7 @@
     <dependencies>
         <dependency>
             <groupId>com.kgignatyev.fss_svc.api</groupId>
-            <artifactId>fss-svc-api-server-impl-g1</artifactId>
+            <artifactId>fss-api-server-impl-g1</artifactId>
             <version>1.0.0</version>
         </dependency>
 
@@ -63,11 +63,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- pom.xml -->
-
-
-
-
 
         <dependency>
             <groupId>javax.activation</groupId>
@@ -223,6 +218,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
             <version>1.11.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.8</version>
         </dependency>
 
     </dependencies>

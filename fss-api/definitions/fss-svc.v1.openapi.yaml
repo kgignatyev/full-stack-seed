@@ -14,14 +14,117 @@ servers:
   - url: /api
 tags:
   - name: CompaniesServiceV1
-  - name: MetadataServiceV1
+  - name: JobsServiceV1
 security:
   - bearerAuth: [ ]
 
 paths:
 
 
+  /v1/jobs/action/search:
+    post:
+        tags:
+            - JobsServiceV1
+        summary: Search for jobs
+        operationId: searchJobs
+        requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/v1.SearchRequest'
 
+        responses:
+          '200':
+            description: A list of jobs
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/v1.JobListResult'
+  /v1/jobs:
+      get:
+        tags:
+            - JobsServiceV1
+        summary: Get all jobs
+        operationId: getAllJobs
+        description: Get all jobs which are available to the user
+        responses:
+          '200':
+            description: A list of jobs
+            content:
+              application/json:
+                schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/v1.Job'
+      post:
+        tags:
+            - JobsServiceV1
+        summary: Create a new job
+        operationId: createJob
+        requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/v1.Job'
+        responses:
+          '201':
+            description: A new job
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/v1.Job'
+
+  /v1/jobs/{id}:
+    get:
+      tags:
+          - JobsServiceV1
+      summary: Get a job by id
+      operationId: getJobById
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: A job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Job'
+    put:
+      tags:
+          - JobsServiceV1
+      summary: Update a job by id
+      operationId: updateJobById
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Job'
+      responses:
+        '200':
+          description: Updated job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Job'
+    delete:
+      tags:
+          - JobsServiceV1
+      summary: Delete a job by id
+      operationId: deleteJobById
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Job has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Status'
   /v1/companies:
     get:
       tags:
@@ -145,6 +248,31 @@ components:
         - FOR_REVIEW
         - REJECTED
         - APPLIED
+        - INTERESTED
+
+    v1.CompanyResponse:
+      type: string
+      enum:
+        - NONE
+        - REJECTED
+        - FILLED
+        - CANCELLED
+
+    v1.ListSummary:
+        type: object
+        properties:
+          total:
+            type: integer
+            format: int64
+          offset:
+            type: integer
+            format: int64
+          size:
+            type: integer
+        required:
+            - total
+            - offset
+            - limit
 
     v1.Company:
       type: object
@@ -170,27 +298,75 @@ components:
         - banned
         - notes
 
+    v1.Pagination:
+        type: object
+        properties:
+          offset:
+            type: integer
+            format: int64
+          limit:
+            type: integer
+        required:
+            - offset
+            - limit
+
+    v1.SearchRequest:
+      type: object
+      properties:
+        companyName:
+          type: string
+          description: optional
+        searchExpression:
+          type: string
+          description: |
+            this is SQL like search expression against properties of an object, 
+             for example: 'title ilike %java%'
+        status:
+          $ref: '#/components/schemas/v1.JobStatus'
+        pagination:
+          $ref: '#/components/schemas/v1.Pagination'
+      required:
+        - textCriteria
+        - pagination
+
+    v1.JobListResult:
+        type: object
+        properties:
+          items:
+            type: array
+            items:
+                $ref: '#/components/schemas/v1.Job'
+          listSummary:
+            $ref: '#/components/schemas/v1.ListSummary'
+        required:
+            - items
+            - listSummary
     v1.Job:
       type: object
       properties:
           id:
             type: string
-          name:
+          title:
             type: string
-          companyId:
+          companyName:
             type: string
-          createdAt:
-            type: string
-            format: date-time
           sourceId:
             type: string
           status:
             $ref: '#/components/schemas/v1.JobStatus'
+          companyResponse:
+            $ref: '#/components/schemas/v1.CompanyResponse'
           notes:
             type: string
+          createdAt:
+            type: string
+            format: date-time
+          updatedAt:
+            type: string
+            format: date-time
       required:
             - id
-            - name
+            - title
             - companyId
             - createdAt
             - sourceId

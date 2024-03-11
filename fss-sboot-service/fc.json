@@ -1,0 +1,218 @@
+{
+    "@context": {
+        "@version": "1.1"
+    },
+    "type": "Feature",
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+            [
+                [
+                    -119.9999923,
+                    41.994712800000002
+                ],
+                [
+                    -119.9991989,
+                    41.979312800000002
+                ],
+                [
+                    -119.999298,
+                    41.874912200000004
+                ],
+                [
+                    -119.9982986,
+                    41.755512200000005
+                ],
+                [
+                    -119.99869529999999,
+                    41.720611500000004
+                ],
+                [
+                    -119.9988937,
+                    41.624912200000004
+                ],
+                [
+                    -119.9982986,
+                    41.618812500000004
+                ],
+                [
+                    -119.9982986,
+                    41.615310600000001
+                ],
+                [
+                    -119.9989929,
+                    41.522411300000002
+                ],
+                [
+                    -119.9994964,
+                    41.499912200000004
+                ],
+                [
+                    -119.99979399999999,
+                    41.374912200000004
+                ],
+                [
+                    -119.9996948,
+                    41.355510700000004
+                ],
+                [
+                    -120.0000991,
+                    41.2567138
+                ],
+                [
+                    -120.0000991,
+                    41.249912199999997
+                ],
+                [
+                    -119.99979399999999,
+                    41.2418136
+                ],
+                [
+                    -119.99979399999999,
+                    41.193710299999999
+                ],
+                [
+                    -120.0003967,
+                    41.184013299999997
+                ],
+                [
+                    -120.01469419999999,
+                    41.183910299999994
+                ],
+                [
+                    -120.04109949999999,
+                    41.184211699999992
+                ],
+                [
+                    -120.12549589999999,
+                    41.275512599999992
+                ],
+                [
+                    -120.12669369999999,
+                    41.36881249999999
+                ],
+                [
+                    -120.18849939999998,
+                    41.477313899999992
+                ],
+                [
+                    -120.18789669999998,
+                    41.591411499999992
+                ],
+                [
+                    -120.22899619999998,
+                    41.629012999999993
+                ],
+                [
+                    -120.22879789999999,
+                    41.704311299999993
+                ],
+                [
+                    -120.18369289999998,
+                    41.726711199999997
+                ],
+                [
+                    -120.18359369999999,
+                    41.801711999999995
+                ],
+                [
+                    -120.17929839999999,
+                    41.801711999999995
+                ],
+                [
+                    -120.17899319999999,
+                    41.851013099999996
+                ],
+                [
+                    -120.19369499999999,
+                    41.851013099999996
+                ],
+                [
+                    -120.19369499999999,
+                    41.879211399999996
+                ],
+                [
+                    -120.16970059999998,
+                    41.879413599999992
+                ],
+                [
+                    -120.13369749999998,
+                    41.918010699999989
+                ],
+                [
+                    -120.10539239999999,
+                    41.966812099999991
+                ],
+                [
+                    -120.01339719999999,
+                    41.995113299999993
+                ],
+                [
+                    -119.9999923,
+                    41.994712800000002
+                ]
+            ]
+        ]
+    },
+    "properties": {
+        "zone": "https://api.weather.gov/zones/forecast/CAZ070",
+        "updated": "2024-03-05T03:33:00-08:00",
+        "periods": [
+            {
+                "number": 1,
+                "name": "Today",
+                "detailedForecast": "Mostly cloudy. Chance of showers. Snow level rising to 5500 feet. Snow accumulation up to 2 inches. Highs 40 to 50. South winds 10 to 15 mph increasing to southwest 15 to 25 mph in the afternoon. Gusts up to 35 mph."
+            },
+            {
+                "number": 2,
+                "name": "Tonight",
+                "detailedForecast": "Showers in the evening, then chance of showers after midnight. Snow level 5000 to 5500 feet. Snow accumulation of 1 to 3 inches. Lows 27 to 32. Southwest winds 10 to 15 mph. Gusts up to 35 mph in the evening."
+            },
+            {
+                "number": 3,
+                "name": "Wednesday",
+                "detailedForecast": "Mostly cloudy with a chance of showers. Snow level 5000 to 5500 feet. Snow accumulation up to 2 inches. Highs 42 to 52. Southwest winds 10 to 15 mph."
+            },
+            {
+                "number": 4,
+                "name": "Wednesday Night",
+                "detailedForecast": "Mostly cloudy. Slight chance of showers in the evening. Snow level 5000 feet lowering to the valley floor. Lows 22 to 32. Northwest winds 10 to 15 mph."
+            },
+            {
+                "number": 5,
+                "name": "Thursday",
+                "detailedForecast": "Mostly cloudy in the morning then becoming partly cloudy. Highs 39 to 49. North winds 10 to 15 mph."
+            },
+            {
+                "number": 6,
+                "name": "Thursday Night",
+                "detailedForecast": "Clear. Lows 13 to 23."
+            },
+            {
+                "number": 7,
+                "name": "Friday and Friday Night",
+                "detailedForecast": "Clear. Highs 41 to 51. Lows 21 to 31."
+            },
+            {
+                "number": 8,
+                "name": "Saturday and Saturday Night",
+                "detailedForecast": "Mostly cloudy with a slight chance of snow showers. Highs 45 to 55. Lows 22 to 32."
+            },
+            {
+                "number": 9,
+                "name": "Sunday",
+                "detailedForecast": "Partly cloudy in the morning then becoming mostly cloudy. Highs 47 to 57."
+            },
+            {
+                "number": 10,
+                "name": "Sunday Night",
+                "detailedForecast": "Mostly cloudy with a slight chance of snow showers. Lows 28 to 33."
+            },
+            {
+                "number": 11,
+                "name": "Monday",
+                "detailedForecast": "Mostly cloudy with a chance of showers. Highs 46 to 56."
+            }
+        ]
+    }
+}

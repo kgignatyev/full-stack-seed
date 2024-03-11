@@ -1,0 +1,62 @@
+<h2>jobs</h2>
+
+<dx-data-grid #jobsDataGrid
+              [dataSource]="jobsDataSource"
+              keyExpr="id"
+              [remoteOperations]="true"
+              [rowAlternationEnabled]="true">
+
+  <dxo-toolbar>
+
+    <dxi-item>
+      <dx-button icon="plus" (onClick)="newJob()"></dx-button>
+    </dxi-item>
+
+    <dxi-item>
+      <dx-button icon="refresh" (onClick)="refresh()"></dx-button>
+    </dxi-item>
+
+    <dxi-item name="exportButton"></dxi-item>
+    <dxi-item name="searchPanel"></dxi-item>
+  </dxo-toolbar>
+  <dxi-column dataField="id" [allowFiltering]="false" cellTemplate="idCT"></dxi-column>
+  <dxi-column dataField="sourceId" [allowSearch]="true"></dxi-column>
+  <dxi-column dataField="title" [allowSearch]="true"></dxi-column>
+  <dxi-column dataField="companyName"  [allowSearch]="true"></dxi-column>
+  <dxi-column dataField="status"  [allowSearch]="false"></dxi-column>
+  <dxi-column dataField="companyResponse"  [allowSearch]="false"></dxi-column>
+  <dxi-column dataField="createdAt"  [allowSearch]="false"></dxi-column>
+  <dxi-column caption="..." [allowSearch]="false"  cellTemplate="actionsCT"></dxi-column>
+  <div *dxTemplate="let cell of 'actionsCT'">
+    <dx-button (onClick)="apply(cell.data)" hint="reject job" class="text-success"
+      [disabled]=" 'FOR_REVIEW' != cell.data.status" >
+      <i class="fa-solid fa-thumbs-up"></i>
+    </dx-button>
+    <dx-button (onClick)="reject(cell.data)" hint="reject job"
+               [disabled]=" 'FOR_REVIEW' != cell.data.status">
+      <i class="fa-solid fa-thumbs-down"></i>
+    </dx-button>
+    <dx-button (onClick)="companyResponse(cell.data)" hint="company response">
+      <i class="fa-solid fa-comment-dots"></i>
+    </dx-button>
+  </div>
+  <div *dxTemplate="let cell of 'idCT'">
+    <a [routerLink]="['/jobs', cell.data.id]">{{cell.data.id}}</a>
+  </div>
+
+
+  <!--  <dxo-filter-row [visible]="true"></dxo-filter-row>-->
+  <dxo-search-panel [visible]="true"></dxo-search-panel>
+</dx-data-grid>
+
+<dx-popup width="300" height="300"
+  [(visible)]="companyResponsePopupVisible"
+  [hideOnOutsideClick]="true" title="Company Response">
+
+  <div *ngFor="let r of companyResponses">
+    <dx-button (onClick)="recordCompanyResponse(r)">
+{{r}}
+    </dx-button>
+  </div>
+
+</dx-popup>
