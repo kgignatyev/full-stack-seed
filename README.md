@@ -21,3 +21,14 @@ Even in this simple example Hibernate caused problems by creating Enum based con
 ![](fss-sboot-service/docs/db-enum-constraint.png)
 
 I used to be big fan of Hibernate but over the years I learned that just a tad more time spent on setting up [myBatis](https://github.com/mybatis/mybatis-3) and maintaining it saves a lot on performance optimization and troubleshooting.
+
+## Sample screens
+Jobs
+![jobs](fss-sboot-service/docs/jobs.png)
+Company response
+![company response](fss-sboot-service/docs/response-dialog.png)
+Login with Auth0
+<br/>
+<img src="fss-sboot-service/docs/login.png" alt="drawing" width="200"/>
+
+
