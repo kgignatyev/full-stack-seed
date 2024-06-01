@@ -1,9 +1,18 @@
 logging:
   level:
     root: info
+#    com:
+#      okta: TRACE
+#    org:
+#      springframework:
+#        security: TRACE
 
+#  pattern:
+#    correlation: [{traceId:-},{spanId:-}]
 
 spring:
+  application:
+      name: fss
   #  cache:
   #    jcache:
   #     config: "classpath:ehcache.xml"
@@ -11,8 +20,10 @@ spring:
   jmx:
     enabled: false
 
+
+
   datasource:
-    # this is needed to make sure the PostgreSQL data source is XA-aware
+
     url: jdbc:postgresql://localhost:5432/fss?sslmode=disable
     username: kgignatyev
     password:
@@ -21,15 +32,20 @@ spring:
       minimum-idle: 10
       connection-init-sql: SELECT 1
       maximum-pool-size: 20
+      catalog: jobs
+
+  flyway:
+    baseline-on-migrate: true
+    default-schema: jobs
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  mvc:
-    throw-exception-if-no-handler-found: true
+        default_schema: jobs
+
 
 
 management:
@@ -47,4 +63,12 @@ management:
         enabled: true
 
 
+okta:
+  oauth2:
+    # Replace with the domain of your Auth0 tenant.
+    issuer: https://kgignatyev.auth0.com/
+    # Replace with the API Identifier for your Auth0 API.
+    audience: http://local-dev
 
+casbin:
+  enable-log: true

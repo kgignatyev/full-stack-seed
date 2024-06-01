@@ -1,8 +1,8 @@
 package com.kgignatyev.fss.service.utils
 
 import com.kgignatyev.fss.service.FssService
-import com.kgignatyev.fss.service.data.Job
-import com.kgignatyev.fss.service.data.JobsRepo
+import com.kgignatyev.fss.service.job.Job
+import com.kgignatyev.fss.service.job.storage.JobsRepo
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1CompanyResponse
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1JobStatus
 import org.apache.commons.csv.CSVFormat
@@ -23,7 +23,7 @@ object ImportTestData {
         val cxt = SpringApplication.run(FssService::class.java, *args)
         try{
             val jobsRepo = cxt.getBean(JobsRepo::class.java)
-            val csvFilePath = "data/jobs.csv"
+            val csvFilePath = "storage/jobs.csv"
             BufferedReader(FileReader(csvFilePath)).use { reader ->
                 // Creating a CSVParser object
                 val csvParser =

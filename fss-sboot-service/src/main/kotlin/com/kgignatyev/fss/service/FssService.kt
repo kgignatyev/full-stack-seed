@@ -5,9 +5,15 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.modulith.Modulithic
 
 @SpringBootApplication
 @EnableJpaRepositories()
+@Modulithic( //
+    sharedModules = [
+//        "com.kgignatyev.fss.service.common.storage",
+                    ],
+    useFullyQualifiedModuleNames = true)
 class FssService {
 
     companion object{

@@ -13,73 +13,222 @@ info:
 servers:
   - url: /api
 tags:
+  - name: AccountsServiceV1
   - name: CompaniesServiceV1
   - name: JobsServiceV1
+  - name: SecurityServiceV1
 security:
   - bearerAuth: [ ]
 
+
 paths:
 
+  /v1/accounts:
+    get:
+      tags:
+        - AccountsServiceV1
+      summary: Get all accounts
+      operationId: getAllAccounts
+      description: Get all accounts which are available to the user
+      responses:
+        '200':
+          description: A list of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/v1.Account'
+    post:
+      tags:
+        - AccountsServiceV1
+      summary: Create a new account
+      operationId: createAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.Account'
+      responses:
+        '201':
+          description: A new account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Account'
 
+  /v1/accounts/action/search:
+    post:
+      tags:
+        - AccountsServiceV1
+      summary: Search for accounts
+      operationId: searchAccounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.SearchRequest'
+
+      responses:
+        '200':
+          description: A list of accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.AccountListResult'
+
+  /v1/accounts/{accountId}:
+    get:
+      tags:
+        - AccountsServiceV1
+      summary: Get an account by id
+      operationId: getAccountById
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: An account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Account'
+    put:
+      tags:
+        - AccountsServiceV1
+      summary: Update an account by id
+      operationId: updateAccountById
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.Account'
+      responses:
+        '200':
+          description: Updated account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Account'
+    delete:
+      tags:
+        - AccountsServiceV1
+      summary: Delete an account by id
+      operationId: deleteAccountById
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Account has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Status'
   /v1/jobs/action/search:
     post:
-        tags:
-            - JobsServiceV1
-        summary: Search for jobs
-        operationId: searchJobs
-        requestBody:
-            required: true
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/v1.SearchRequest'
+      tags:
+        - JobsServiceV1
+      summary: Search for jobs
+      operationId: searchJobs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.SearchRequest'
 
-        responses:
-          '200':
-            description: A list of jobs
-            content:
-              application/json:
-                schema:
-                    $ref: '#/components/schemas/v1.JobListResult'
-  /v1/jobs:
-      get:
-        tags:
-            - JobsServiceV1
-        summary: Get all jobs
-        operationId: getAllJobs
-        description: Get all jobs which are available to the user
-        responses:
-          '200':
-            description: A list of jobs
-            content:
-              application/json:
-                schema:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/v1.Job'
-      post:
-        tags:
-            - JobsServiceV1
-        summary: Create a new job
-        operationId: createJob
-        requestBody:
-            required: true
-            content:
-              application/json:
-                schema:
+      responses:
+        '200':
+          description: A list of jobs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.JobListResult'
+  /v1/accounts/{accountId}/jobs:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      tags:
+        - JobsServiceV1
+      summary: Get all jobs
+      operationId: getAllJobs
+      description: Get all jobs which are available to the user
+      responses:
+        '200':
+          description: A list of jobs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
                   $ref: '#/components/schemas/v1.Job'
-        responses:
-          '201':
-            description: A new job
-            content:
-              application/json:
-                schema:
-                    $ref: '#/components/schemas/v1.Job'
+    post:
+      tags:
+        - JobsServiceV1
+      summary: Create a new job
+      operationId: createJob
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.Job'
+      responses:
+        '201':
+          description: A new job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Job'
+
+  /v1/jobs/{id}/events:
+    get:
+      tags:
+        - JobsServiceV1
+      summary: Get all events for a job
+      operationId: getJobEvents
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: A list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/v1.JobEvent'
+    post:
+      tags:
+        - JobsServiceV1
+      summary: Create a new event for a job
+      operationId: createJobEvent
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.JobEvent'
+      responses:
+        '201':
+          description: A new event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.JobEvent'
 
   /v1/jobs/{id}:
     get:
       tags:
-          - JobsServiceV1
+        - JobsServiceV1
       summary: Get a job by id
       operationId: getJobById
       parameters:
@@ -93,17 +242,17 @@ paths:
                 $ref: '#/components/schemas/v1.Job'
     put:
       tags:
-          - JobsServiceV1
+        - JobsServiceV1
       summary: Update a job by id
       operationId: updateJobById
       parameters:
         - $ref: '#/components/parameters/id'
       requestBody:
-          required: true
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/v1.Job'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.Job'
       responses:
         '200':
           description: Updated job
@@ -113,7 +262,7 @@ paths:
                 $ref: '#/components/schemas/v1.Job'
     delete:
       tags:
-          - JobsServiceV1
+        - JobsServiceV1
       summary: Delete a job by id
       operationId: deleteJobById
       parameters:
@@ -125,14 +274,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/v1.Status'
-  /v1/companies:
+  /v1/accounts/{accountId}/companies:
     get:
       tags:
         - CompaniesServiceV1
         - JobsServiceV1
+      parameters:
+        - $ref: '#/components/parameters/accountId'
       summary: Get all companies
       operationId: getAllCompanies
-      description: Get all companies which are available to the user
+      description: Get all companies which are of interest to the account
       responses:
         '200':
           description: A list of companies
@@ -147,6 +298,8 @@ paths:
         - CompaniesServiceV1
       summary: Create a new company
       operationId: createCompany
+      parameters:
+        - $ref: '#/components/parameters/accountId'
       requestBody:
         required: true
         content:
@@ -160,6 +313,95 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/v1.Company'
+
+  /v1/security/users/{userId}:
+    get:
+      tags:
+        - SecurityServiceV1
+      summary: Get a user by id
+      operationId: getUserById
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: A user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.User'
+    put:
+      tags:
+        - SecurityServiceV1
+      summary: Update a user by id
+      operationId: updateUserById
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.User'
+      responses:
+        '200':
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.User'
+    delete:
+      tags:
+        - SecurityServiceV1
+      summary: Delete a user by id
+      operationId: deleteUserById
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: User has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Status'
+
+  /v1/security/users/action/search:
+    post:
+      tags:
+        - SecurityServiceV1
+      summary: Search for users
+      operationId: searchUsers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.SearchRequest'
+
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.UsersListResult'
+
+  /v1/security/policies/action/list-for-user/{userId}:
+    get:
+      tags:
+        - SecurityServiceV1
+      summary: Get a security policies for user
+      operationId: getSecurityPoliciesForUser
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: A security policy
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/v1.SecurityPolicy'
 
   /v1/companies/{id}:
     get:
@@ -227,7 +469,22 @@ components:
         type: string
       in: path
       required: true
+    accountId:
+      name: accountId
+      description: "can be 'my' to get current user's storage"
+      schema:
+        type: string
+      in: path
+      required: true
+    userId:
+      name: userId
+      description: "can be 'my' to get current user's storage"
+      schema:
+        type: string
+      in: path
+      required: true
   schemas:
+
     v1.Status:
       type: object
       properties:
@@ -242,13 +499,93 @@ components:
       enum:
         - Y
         - N
+
+    v1.User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        jwtSub:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - createdAt
+        - updatedAt
+    v1.Account:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        notes:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        active:
+          $ref: '#/components/schemas/v1.YN'
+      required:
+        - id
+        - name
+        - createdAt
+        - active
+
     v1.JobStatus:
       type: string
       enum:
         - FOR_REVIEW
-        - REJECTED
+        - NOT_INTERESTED
         - APPLIED
-        - INTERESTED
+        - INTERVIEWING
+        - APPLIED_VIA_AGENCY
+        - POSITION_CLOSED
+        - REJECTED_BY_COMPANY
+
+    v1.JobEventType:
+      type: string
+      enum:
+        - APPLIED
+        - APPLIED_VIA_AGENCY
+        - INTERVIEW_SCHEDULED
+        - INTERVIEWED
+        - REJECTED
+        - HIRED
+        - POSITION_CLOSED
+        - CANCELLED
+        - OTHER
+
+    v1.JobEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        jobId:
+          type: string
+        eventType:
+          $ref: '#/components/schemas/v1.JobEventType'
+        notes:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - jobId
+        - eventType
+        - notes
+        - createdAt
 
     v1.CompanyResponse:
       type: string
@@ -259,25 +596,27 @@ components:
         - CANCELLED
 
     v1.ListSummary:
-        type: object
-        properties:
-          total:
-            type: integer
-            format: int64
-          offset:
-            type: integer
-            format: int64
-          size:
-            type: integer
-        required:
-            - total
-            - offset
-            - limit
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        offset:
+          type: integer
+          format: int64
+        size:
+          type: integer
+      required:
+        - total
+        - offset
+        - limit
 
     v1.Company:
       type: object
       properties:
         id:
+          type: string
+        accountId:
           type: string
         name:
           type: string
@@ -299,28 +638,30 @@ components:
         - notes
 
     v1.Pagination:
-        type: object
-        properties:
-          offset:
-            type: integer
-            format: int64
-          limit:
-            type: integer
-        required:
-            - offset
-            - limit
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        limit:
+          type: integer
+      required:
+        - offset
+        - limit
 
     v1.SearchRequest:
       type: object
       properties:
-        companyName:
-          type: string
-          description: optional
         searchExpression:
           type: string
           description: |
             this is SQL like search expression against properties of an object, 
              for example: 'title ilike %java%'
+        sortExpression:
+          type: string
+          description: |
+            this is SQL like sort expression against properties of an object, 
+             for example: 'title [asc|desc], createdAt [asc|desc]'
         status:
           $ref: '#/components/schemas/v1.JobStatus'
         pagination:
@@ -329,49 +670,99 @@ components:
         - textCriteria
         - pagination
 
-    v1.JobListResult:
-        type: object
-        properties:
+    v1.SecurityPolicy:
+      type: object
+      properties:
+        id:
+          type: string
+        policyExpression:
+          type: string
+      required:
+        - id
+        - policyExpression
+
+    v1.UsersListResult:
+      type: object
+      properties:
+        items:
+          type: array
           items:
-            type: array
-            items:
-                $ref: '#/components/schemas/v1.Job'
-          listSummary:
-            $ref: '#/components/schemas/v1.ListSummary'
-        required:
-            - items
-            - listSummary
+            $ref: '#/components/schemas/v1.User'
+        listSummary:
+          $ref: '#/components/schemas/v1.ListSummary'
+      required:
+        - items
+        - listSummary
+
+    v1.JobListResult:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/v1.Job'
+        listSummary:
+          $ref: '#/components/schemas/v1.ListSummary'
+      required:
+        - items
+        - listSummary
+
+    v1.AccountListResult:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/v1.Account'
+        listSummary:
+          $ref: '#/components/schemas/v1.ListSummary'
+      required:
+        - items
+        - listSummary
+
     v1.Job:
       type: object
       properties:
-          id:
-            type: string
-          title:
-            type: string
-          companyName:
-            type: string
-          sourceId:
-            type: string
-          status:
-            $ref: '#/components/schemas/v1.JobStatus'
-          companyResponse:
-            $ref: '#/components/schemas/v1.CompanyResponse'
-          notes:
-            type: string
-          createdAt:
-            type: string
-            format: date-time
-          updatedAt:
-            type: string
-            format: date-time
+        id:
+          type: string
+        accountId:
+          type: string
+        title:
+          type: string
+        companyName:
+          type: string
+        sourceId:
+          type: string
+        status:
+          $ref: '#/components/schemas/v1.JobStatus'
+        companyResponse:
+          $ref: '#/components/schemas/v1.CompanyResponse'
+        notes:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        agencyName:
+          type: string
+          description: optional, name of the agency which represents you for the job
+        agentName:
+          type: string
+          description: optional, name of the recruiter at the agency
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/v1.JobEvent'
       required:
-            - id
-            - title
-            - companyId
-            - createdAt
-            - sourceId
-            - banned
-            - notes
+        - id
+        - title
+        - companyId
+        - createdAt
+        - sourceId
+        - banned
+        - notes
 
 
 

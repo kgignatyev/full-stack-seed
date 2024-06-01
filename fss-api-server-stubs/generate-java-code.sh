@@ -59,7 +59,7 @@ echo "using openapi definitions located at: $DEFINITIONS"
 docker run --rm  --user=$USER \
   -v ${PWD}:/local \
   -v ${DEFINITIONS}:/local/definitions \
-  openapitools/openapi-generator-cli:v7.0.0 \
+  openapitools/openapi-generator-cli:${OPENAPI_GENERATOR_DOCKER_TAG} \
   generate \
   -i local/definitions/${MODULE}.${API_VERSION}.openapi.yaml \
   $IMPORT_MAPPINGS \

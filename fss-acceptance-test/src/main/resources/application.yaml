@@ -1,0 +1,35 @@
+logging:
+  level:
+    okhttp3: INFO
+
+
+fss:
+  api:
+    baseUrl: http://localhost:8080/api
+
+  users:
+    admin:
+      name: kgignatyev+fss@gmail.com
+      password: password
+      roles: ADMIN
+    testUser1:
+      name: kgignatyev+fss1@gmail.com
+      password: password
+      roles: USER
+    testUser2:
+      name: kgignatyev+fss2@gmail.com
+      password: password
+      roles: USER
+    prometheus:
+      name: prometheus
+      password: password
+      roles: SYSTEM_READ
+
+auth0:
+  issuer: https://kgignatyev.auth0.com
+  clientId: client_id
+  clientSecret: client_secret
+  audience: http://local-dev
+
+
+

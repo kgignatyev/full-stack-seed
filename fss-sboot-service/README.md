@@ -1,15 +1,26 @@
-
-
-run utilities
+run in development mode
 ---
-
-  mvn test-compile package exec:java -DskipTests -Dexec.mainClass=<full-class-name> -Dexec.classpathScope="test"
-
-for example to run import sample data we will run
+```shell    
+mvn spring-boot:run 
+```
+The application will be running on http://localhost:8080
+Spring development utilities are enabled
+and therefore the application will reload on changes. To trigger a reload simply 
+modify source code and run compilation.
 
 ```shell
-mvn test-compile package exec:java -DskipTests -Dexec.mainClass=com.kgignatyev.fss.service.utils.ImportTestData -Dexec.classpathScope="test"
+ mvnd package -DskipTests
+```
+Note that *mvn* command can be used but *mvnd* will be faster because it maintains a daemon process.
+
+
+Run tests
+---
+```shell
+ mvnd test [-Dtest=TestClassName]
 ```
 
-
-
+to run tests in debug mode
+```shell
+ mvnd test -Dmaven.surefire.debug [-Dtest=TestClassName]
+```
