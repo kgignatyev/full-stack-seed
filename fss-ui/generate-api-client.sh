@@ -34,7 +34,7 @@ USER=$(id -u)
 docker run --rm --user=${USER}:${USER} \
   -v ${PWD}:/local \
   -v ${DEFINITIONS}:/local/definitions \
-  openapitools/openapi-generator-cli:v7.0.1 \
+  openapitools/openapi-generator-cli:${OPENAPI_GENERATOR_DOCKER_TAG} \
   generate \
   -i local/definitions/fss-svc.${API_VERSION}.openapi.yaml \
   --additional-properties=apiModulePrefix=${PREFIX} \

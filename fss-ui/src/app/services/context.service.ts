@@ -18,6 +18,8 @@ export class ContextService {
   public textCriteria = "";
   public quantity = 0;
   public selectedItems: Array<any> = [];
+  public currentAccount$ = new BehaviorSubject('my');
+
 
   public alerts$ = new BehaviorSubject<Alert | undefined>(undefined);
 

@@ -126,7 +126,7 @@ export class JobsListComponent {
   }
   reject(j: V1Job) {
     const jClone = Object.assign({}, j)
-    jClone.status = "REJECTED"
+    jClone.status = "NOT_INTERESTED"
     this.updateJob(j,jClone)
   }
 

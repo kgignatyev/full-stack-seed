@@ -22,7 +22,7 @@ export class CidAndJWTInterceptor implements HttpInterceptor {
       if( impersonateUserID ){
         updatedHeaders = updatedHeaders.set('impersonate_user_id', impersonateUserID)
       }
-      // console.log("added auth header: " + data?.__raw)
+      // console.log("added auth header: " + storage?.__raw)
     }
     const modifiedReq = req.clone({headers: updatedHeaders});
     return next.handle(modifiedReq);

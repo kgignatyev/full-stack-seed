@@ -2,6 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {CompaniesServiceV1Service, V1Company, V1YN} from "../../generated/api_client";
 import {Subscription} from "rxjs";
+import {ContextService} from "../../services/context.service";
 
 function makeNewCompany():V1Company {
   return {banned: V1YN.N, createdAt: "", id: "", name: "", notes: "", sourceId: ""};
@@ -16,7 +17,8 @@ export class CompanyComponent implements OnDestroy{
   id: string = '';
   company: V1Company = makeNewCompany()
 
-  constructor(private companiesSvc: CompaniesServiceV1Service, private route: ActivatedRoute,private router: Router) {
+  constructor(private companiesSvc: CompaniesServiceV1Service, private cxtSvc: ContextService,
+              private route: ActivatedRoute,private router: Router) {
     this.sub = this.route.paramMap.subscribe(params => {
       this.id = params.get('id') || 'no-id-param';
       if( 'new' == this.id ){
@@ -36,7 +38,7 @@ export class CompanyComponent implements OnDestroy{
     }
 
   saveCompany() {
-    this.companiesSvc.createCompany(this.company).subscribe(c => {
+    this.companiesSvc.createCompany( this.cxtSvc.currentAccount$.getValue(), this.company).subscribe(c => {
       this.company = c;
     })
   }
