@@ -10,9 +10,13 @@ import org.springframework.transaction.annotation.Transactional
 
 @Repository
 @Transactional
-interface JobsRepo : CrudRepository<Job, String>, JpaSpecificationExecutor<Job> {}
+interface JobsRepo : CrudRepository<Job, String>, JpaSpecificationExecutor<Job> {
+    fun findByAccountId(id: String): List<Job>
+}
 
 
 @Repository
 @Transactional
-interface JobEventsRepo : CrudRepository<JobEvent, String>, JpaSpecificationExecutor<JobEvent> {}
+interface JobEventsRepo : CrudRepository<JobEvent, String>, JpaSpecificationExecutor<JobEvent> {
+    fun deleteByJobId(id: String)
+}

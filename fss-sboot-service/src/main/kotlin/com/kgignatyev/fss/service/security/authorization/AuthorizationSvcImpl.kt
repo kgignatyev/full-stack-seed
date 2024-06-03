@@ -1,36 +1,44 @@
 package com.kgignatyev.fss.service.security.authorization
 
+import com.kgignatyev.fss.service.security.AuthorizationSvc
 import com.kgignatyev.fss.service.security.storage.SecurityPoliciesRepo
 import org.apache.commons.io.IOUtils
-import java.nio.charset.StandardCharsets
 import org.casbin.jcasbin.main.Enforcer
 import org.casbin.jcasbin.model.Model
 import org.casbin.jcasbin.persist.Helper
 import org.casbin.jcasbin.util.Util
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
+import java.nio.charset.StandardCharsets
 
 @Service
-class AuthorizationSvc( val policiesRepo: SecurityPoliciesRepo) {
+class AuthorizationSvcImpl(val policiesRepo: SecurityPoliciesRepo) : AuthorizationSvc {
 
-    lateinit var policyEvaluatorExpression: String
+    val logger: Logger = LoggerFactory.getLogger(this.javaClass)
+
 
     @Value("\${casbin.enable-log}")
-    lateinit var enableCasbinLogging: String
+    var enableCasbinLogging: Boolean = false
 
     val canDoAction = CanDoActionFunction()
     val isActiveFunction = IsActiveFunction()
+    val belongsToAccountFunction = HasAccessToFunction()
 
 
-    fun init() {
+    override fun getEvaluatorExpression(): String {
         val authorizationModelText = resourceAsText("fss_authorization_model.conf")
         val authzModelLines = authorizationModelText.split("\n")
         val prefix = "m ="
         val evalLine = authzModelLines.find { it.startsWith(prefix) }!!
-        policyEvaluatorExpression = evalLine.substring(prefix.length).trim()
+        return evalLine.substring(prefix.length).trim()
     }
 
-    fun createEnforcerForUser( userId: String): Enforcer {
+    fun createEnforcerForUser(userId: String): Enforcer {
+        logger.info("Creating enforcer for user $userId")
         val model = Model()
         val authorizationModelText = resourceAsText("fss_authorization_model.conf")
         model.loadModelFromText(authorizationModelText)
@@ -42,7 +50,8 @@ class AuthorizationSvc( val policiesRepo: SecurityPoliciesRepo) {
         val enforcer = Enforcer(model)
         enforcer.addFunction(canDoAction.name, canDoAction)
         enforcer.addFunction(isActiveFunction.name, isActiveFunction)
-        Util.enableLog = enableCasbinLogging.toBoolean()
+        enforcer.addFunction(belongsToAccountFunction.name, belongsToAccountFunction)
+        Util.enableLog = enableCasbinLogging
         return enforcer
     }
 
@@ -51,6 +60,14 @@ class AuthorizationSvc( val policiesRepo: SecurityPoliciesRepo) {
         return IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
     }
 
+    @Cacheable("enforcers")
+    override fun getEnforcerForUser(userId: String): Enforcer {
+        return createEnforcerForUser(userId)
+    }
 
 
+    @CacheEvict("enforcers", allEntries = true)
+    override fun evictEnforcers() {
+        logger.info("Evicting enforcers cache")
+    }
 }

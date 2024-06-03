@@ -1,6 +1,10 @@
 package com.kgignatyev.fss.service.accounts
 
 import com.kgignatyev.fss.service.common.api.APIHelpers.ofOptional
+import com.kgignatyev.fss.service.common.data.Operation.DELETE
+import com.kgignatyev.fss.service.common.data.Operation.READ
+import com.kgignatyev.fss.service.common.data.Operation.UPDATE
+import com.kgignatyev.fss.service.security.SecuritySvc
 import com.kgignatyev.fss_svc.api.fsssvc.AccountsServiceV1Api
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1Account
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1AccountListResult
@@ -18,13 +22,15 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(path = ["/api"])
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"], methods = [RequestMethod.PATCH, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.PUT])
 @RestController
-class AccountsSvcV1Impl( val accountsSvc: AccountsSvc, val conversionService: ConversionService): AccountsServiceV1Api {
+class AccountsSvcV1Impl( val accountsSvc: AccountsSvc, val conversionService: ConversionService,
+    ): AccountsServiceV1Api {
 
     override fun searchAccounts(v1SearchRequest: V1SearchRequest): ResponseEntity<V1AccountListResult> {
         val r = accountsSvc.search(v1SearchRequest.searchExpression,v1SearchRequest.sortExpression, v1SearchRequest.pagination.offset, v1SearchRequest.pagination.limit)
         val res = V1AccountListResult()
         res.items = r.items.map { conversionService.convert(it, V1Account::class.java)!! }
         res.listSummary = r.summary.toApiListSummary()
+        res.listSummary.size = res.items.size
         return ResponseEntity.ok( res )
     }
 

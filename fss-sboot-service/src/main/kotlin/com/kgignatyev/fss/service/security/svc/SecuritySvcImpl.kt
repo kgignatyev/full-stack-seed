@@ -2,8 +2,13 @@ package com.kgignatyev.fss.service.security.svc
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.kgignatyev.fss.service.UnauthorizedException
+import com.kgignatyev.fss.service.accounts.Account
 import com.kgignatyev.fss.service.accounts.AccountEvent
+import com.kgignatyev.fss.service.common.data.Operation.DELETE
+import com.kgignatyev.fss.service.common.data.Operation.UPDATE
 import com.kgignatyev.fss.service.common.events.CrudEventType
+import com.kgignatyev.fss.service.job.Job
 import com.kgignatyev.fss.service.security.*
 import com.kgignatyev.fss.service.security.storage.SecurityPoliciesRepo
 import jakarta.annotation.Resource
@@ -14,17 +19,18 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
-import org.springframework.modulith.events.ApplicationModuleListener
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
+import java.util.*
 
 
 @Service
 class SecuritySvcImpl(
     val userSvc: UserSvc,
-    val policiesRepo: SecurityPoliciesRepo
+    val policiesRepo: SecurityPoliciesRepo,
+    val authorizationSvc: AuthorizationSvc,
 ) : SecuritySvc {
 
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -35,21 +41,32 @@ class SecuritySvcImpl(
     @Resource
     lateinit var om:ObjectMapper
 
-    @ApplicationModuleListener
+
     @Transactional
-    fun onAccountEvent(event: AccountEvent) {
-        logger.info("Account event: ${event.data.id} ${event.eventType}")
-        if( event.eventType == CrudEventType.CREATED){
-            val ownerId = event.data.ownerId
-            val policy = SecurityPolicy()
-            policy.userId = ownerId
-            policy.name = "account-owner"
-            policy.policy = "Account/${event.data.id}, *"
-            policiesRepo.save(policy)
+    override fun onCrudEvent(o:Securable,eventType: CrudEventType) {
+        logger.info("Crud event: ${o.type()} $eventType")
+        if( eventType == CrudEventType.CREATED){
+            when(o.type()){
+                 SecurableType.ACCOUNT -> {
+                    val ownerId = o.ownerId()
+                    val policy = SecurityPolicy()
+                    policy.userId = ownerId
+                    policy.name = "account-owner"
+                    policy.policy = "${o.type().tName}/${o.id()}, *"
+                    policiesRepo.save(policy)
+                    authorizationSvc.evictEnforcers()
+                }
+                else -> {}
+            }
         }
     }
 
     override fun getSecurityPoliciesForUser(userId: String): List<SecurityPolicy> {
+        val uO = userSvc.findById(userId)
+        if (uO.isEmpty) {
+            throw IllegalArgumentException("User not found")
+        }
+        checkCurrentUserAuthorized(uO.get(), "read")
         return policiesRepo.findByUserId(userId)
     }
 
@@ -62,6 +79,12 @@ class SecuritySvcImpl(
         val userO = userSvc.findByJwtSub(user.jwtSub)
         if (userO.isEmpty) {
             val savedUser = userSvc.save(user)
+            val policy = SecurityPolicy()
+            policy.userId = savedUser.id
+            policy.name = "self access"
+            policy.policy = "${SecurableType.USER.tName}/${savedUser.id}, *"
+            policiesRepo.save(policy)
+            authorizationSvc.evictEnforcers()
             callerInfo.currentUser = savedUser
         }
 
@@ -116,7 +139,48 @@ class SecuritySvcImpl(
 
     @Transactional
     override fun deleteUser(userId: String) {
+        val u = User()
+        u.id = userId
+        checkCurrentUserAuthorized( u, DELETE)
         policiesRepo.deleteByUserId(userId)
         userSvc.deleteById(userId)
+    }
+
+    override fun getUserById(userId: String): Optional<User> {
+        val effectiveUserId = if (userId == "my" || userId == "me") getCallerInfo().currentUser.id else userId
+        val u = userSvc.findById(effectiveUserId)
+        if( u.isPresent){
+            checkCurrentUserAuthorized(u.get(), "read")
+        }
+        return u
+    }
+
+    override fun updateUserById(u: User): User {
+        checkCurrentUserAuthorized(u, UPDATE)
+        return userSvc.save(u)
+    }
+
+    override fun isUserAuthorized( userId:String,o: Securable, action: String): Boolean {
+        val enforcer = authorizationSvc.getEnforcerForUser(userId)
+        return enforcer.enforce(userId, o, action)
+    }
+
+    override fun isCurrentUserAuthorized(o: Securable, action: String): Boolean {
+        val userId =  getCallerInfo().currentUser.id
+        return isUserAuthorized(userId,o,action)
+    }
+
+    override fun checkCurrentUserAuthorized(o: Securable, action: String) {
+        if (!isCurrentUserAuthorized(o, action)) {
+            throw UnauthorizedException("User is not authorized to perform operation [$action] on object [${describeObjectForLog(o)}]")
+        }
+    }
+
+    fun describeObjectForLog(o: Securable): String {
+        return "${o.type().tName}/${o.id()} " + when (o.type()) {
+            SecurableType.ACCOUNT -> "owned by ${o.ownerId()}"
+            SecurableType.JOB -> " in account ${o.accountId()}"
+            else -> ""
+        }
     }
 }

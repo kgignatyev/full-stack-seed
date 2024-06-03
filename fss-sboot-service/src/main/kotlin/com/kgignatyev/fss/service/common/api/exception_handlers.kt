@@ -26,7 +26,7 @@ class ExceptionControllerAdvices {
     @ExceptionHandler(value = [UnauthorizedException::class])
     fun unauthorizedException(exception: UnauthorizedException): ResponseEntity<Any> {
         logger.error("UnauthorizedException: ${exception.message}", exception)
-        return ResponseEntity("${exception.message}", HttpStatus.UNAUTHORIZED)
+        return ResponseEntity("${exception.message}", HttpStatus.FORBIDDEN)
     }
 
     @ExceptionHandler(

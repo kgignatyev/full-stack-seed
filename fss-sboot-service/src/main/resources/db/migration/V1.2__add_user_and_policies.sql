@@ -29,3 +29,8 @@ ALTER TABLE accounts_acnt
     ADD FOREIGN KEY (owner_id) REFERENCES users_usrs (usrs_id) ON DELETE SET NULL;
 
 
+INSERT INTO users_usrs (usrs_id, name, email, jwt_sub, created_at, updated_at)
+VALUES ('admin', 'kgignatyev+fss@gmail.com', 'kgignatyev+fss@gmail.com', 'auth0|66569166dfa865b644b88d5c', '2024-05-30', '2024-05-30');
+
+INSERT INTO security_policies_spls (spls_id, usrs_id, name, policy, created_at)
+VALUES ('p1', 'admin', 'admin', '*, *', '2024-05-30');

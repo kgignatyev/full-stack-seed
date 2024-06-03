@@ -3,6 +3,7 @@ package com.kgignatyev.fss.service.job
 import com.kgignatyev.fss.service.common.data.SearchResult
 import com.kgignatyev.fss_svc.api.fsssvc.JobsServiceV1Api
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1Job
+import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1JobEvent
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1JobListResult
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1SearchRequest
 import org.springframework.beans.factory.annotation.Qualifier
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"], methods = [RequestMethod.PATCH, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.PUT])
 @RestController
 class JobsServiceV1ApiImpl(val jobsSvc: JobService,
+                           val jobEventService: JobEventService,
                            @Qualifier("mvcConversionService") val conv:ConversionService):JobsServiceV1Api {
 
     override fun getAllJobs(accountId:String): ResponseEntity<List<V1Job>> {
@@ -33,9 +35,25 @@ class JobsServiceV1ApiImpl(val jobsSvc: JobService,
         return ok( res )
     }
 
+    override fun createJob(accountId: String, v1Job: V1Job): ResponseEntity<V1Job> {
+        val j = conv.convert( v1Job, Job::class.java)!!
+        val r =  jobsSvc.save( j )
+        return ok( conv.convert(r, V1Job::class.java))
+    }
+
     override fun updateJobById(id: String, v1Job: V1Job): ResponseEntity<V1Job> {
         val j = conv.convert( v1Job, Job::class.java)!!
         val r =  jobsSvc.save( j )
         return ok( conv.convert(r, V1Job::class.java))
+    }
+
+    override fun createJobEvent(id: String, v1JobEvent: V1JobEvent): ResponseEntity<V1JobEvent> {
+        val e = conv.convert( v1JobEvent, JobEvent::class.java)!!
+        val r =  jobEventService.save( e )
+        return ok( conv.convert(r, V1JobEvent::class.java))
+    }
+
+    override fun getJobById(id: String): ResponseEntity<V1Job> {
+        return ok( conv.convert(jobsSvc.findById(id).get(), V1Job::class.java))
     }
 }

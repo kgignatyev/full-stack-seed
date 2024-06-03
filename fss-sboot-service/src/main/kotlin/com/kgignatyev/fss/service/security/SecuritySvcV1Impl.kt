@@ -1,5 +1,6 @@
 package com.kgignatyev.fss.service.security
 
+import com.kgignatyev.fss.service.common.api.APIHelpers.ofOptional
 import com.kgignatyev.fss.service.common.api.V1StatusHelpers.OK
 import com.kgignatyev.fss.service.common.api.V1StatusHelpers.OK_ENTITY
 import com.kgignatyev.fss_svc.api.fsssvc.SecurityServiceV1Api
@@ -27,7 +28,7 @@ class SecuritySvcV1Impl(val securitySvc: SecuritySvc,
     }
 
     override fun getSecurityPoliciesForUser(userId: String): ResponseEntity<List<V1SecurityPolicy>> {
-        val effectiveUserId = if( userId == "my") securitySvc.getCallerInfo().currentUser.id else userId
+        val effectiveUserId = if( userId == "my" || userId == "me") securitySvc.getCallerInfo().currentUser.id else userId
         val policies:List<SecurityPolicy> = securitySvc.getSecurityPoliciesForUser(effectiveUserId)
         return ResponseEntity.ok(policies.map { conversionService.convert(it,V1SecurityPolicy::class.java)!! })
     }
@@ -35,5 +36,16 @@ class SecuritySvcV1Impl(val securitySvc: SecuritySvc,
     override fun deleteUserById(userId: String): ResponseEntity<V1Status> {
         securitySvc.deleteUser(userId)
         return OK_ENTITY
+    }
+
+    override fun getUserById(userId: String): ResponseEntity<V1User> {
+        return ofOptional(  securitySvc.getUserById(userId) ) { conversionService.convert(it,V1User::class.java)!! }
+    }
+
+    override fun updateUserById(userId: String, v1User: V1User): ResponseEntity<V1User> {
+        v1User.id = userId
+        val u = conversionService.convert(v1User, User::class.java)!!
+        val updatedUser = securitySvc.updateUserById(u)
+        return ResponseEntity.ok(conversionService.convert(updatedUser,V1User::class.java)!!)
     }
 }

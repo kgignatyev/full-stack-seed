@@ -14,7 +14,7 @@ Feature: Jobs management
   Scenario Outline: Update job
     Given user "<userName>" is logged in
     And current user can find "<jobName>"
-    Then current user can see updated job "<jobName>" notes
+    Then current user can update current job notes
 
     Examples:
       | userName  | jobName    |

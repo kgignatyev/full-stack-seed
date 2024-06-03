@@ -12,10 +12,11 @@ class Account2API:Converter<Account, V1Account> {
         if( source == null ) return null
         val res = V1Account()
         res.id = source.id
+        res.ownerId = source.ownerId
         res.name = source.name
         res.notes = source.notes
         res.active = source.active
-        res.createdAt = source.created_at
+        res.createdAt = source.createdAt
         return res
     }
 }
@@ -27,9 +28,10 @@ class API2Account:Converter<V1Account, Account> {
         val res = Account()
         res.id = source.id
         res.name = source.name
+        res.ownerId = source.ownerId
         res.notes = source.notes
         res.active = source.active
-        res.created_at = source.createdAt
+        res.createdAt = source.createdAt
         return res
     }
 }

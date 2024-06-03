@@ -3,6 +3,8 @@ package com.kgignatyev.fss.service.job
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1CompanyResponse
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1JobStatus
 import jakarta.persistence.*
+import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
 import java.time.OffsetDateTime
 
 @Entity
@@ -13,6 +15,8 @@ class Job {
     @GeneratedValue(strategy= GenerationType.UUID)
     @Column(name = "jobs_id")
     var id:String = ""
+    @Column(name = "acnt_id")
+    var accountId:String = ""
     var title  = ""
     @Column(name = "description")
     var description: String = ""
@@ -24,8 +28,12 @@ class Job {
     var source = ""
     @Column(name = "notes")
     var notes = ""
-    var createdAt = OffsetDateTime.now()
-    var updatedAt = createdAt
+    @CreationTimestamp
+    @Column(name = "created_at")
+    var createdAt:OffsetDateTime = OffsetDateTime.now()
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    var updatedAt:OffsetDateTime  = createdAt
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     var status:V1JobStatus = V1JobStatus.FOR_REVIEW

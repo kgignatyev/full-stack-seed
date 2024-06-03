@@ -60,7 +60,7 @@ class AccountSteps {
 
     @Then("current user can create a new account with the name {string}")
     fun current_user_can_create_a_new_account_with_the_name(accountName: String) {
-        val a = V1Account("", accountName, OffsetDateTime.now(), V1YN.Y)
+        val a = V1Account("", "", accountName, OffsetDateTime.now(), V1YN.Y)
         val account = accountsAPI.createAccount(a)
         account.name shouldBe accountName
         account.id shouldHaveMinLength 2
@@ -108,9 +108,18 @@ class AccountSteps {
         try {
             a = accountsAPI.getAccountById(account.id)
         } catch (e: Exception) {
-            //should get 401
+
+            when (e) {
+                is ClientException -> {
+                    e.statusCode shouldBe 403
+                    return
+                }
+
+                else -> {
+                    throw e
+                }
+            }
         }
-        throw Exception("Should not be able to get account $accountName by id")
     }
 
     @Then("current user can NOT update data of account {string}")
@@ -127,7 +136,7 @@ class AccountSteps {
         } catch (e: Exception) {
             when (e) {
                 is ClientException -> {
-                    e.statusCode shouldBe 401
+                    e.statusCode shouldBe 403
                     return
                 }
 

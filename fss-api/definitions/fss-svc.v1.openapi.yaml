@@ -478,7 +478,7 @@ components:
       required: true
     userId:
       name: userId
-      description: "can be 'my' to get current user's storage"
+      description: "can be 'my' to get current user's data"
       schema:
         type: string
       in: path
@@ -527,6 +527,8 @@ components:
       properties:
         id:
           type: string
+        ownerId:
+          type: string
         name:
           type: string
         notes:
@@ -539,6 +541,7 @@ components:
       required:
         - id
         - name
+        - ownerId
         - createdAt
         - active
 
@@ -552,6 +555,7 @@ components:
         - APPLIED_VIA_AGENCY
         - POSITION_CLOSED
         - REJECTED_BY_COMPANY
+        - HIRED
 
     v1.JobEventType:
       type: string
@@ -757,11 +761,11 @@ components:
             $ref: '#/components/schemas/v1.JobEvent'
       required:
         - id
+        - accountId
         - title
-        - companyId
         - createdAt
         - sourceId
-        - banned
+        - status
         - notes
 
 

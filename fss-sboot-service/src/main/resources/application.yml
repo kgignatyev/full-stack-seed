@@ -45,7 +45,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: jobs
-
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+      provider: org.ehcache.jsr107.EhcacheCachingProvider
 
 
 management:
@@ -72,3 +75,5 @@ okta:
 
 casbin:
   enable-log: true
+
+
