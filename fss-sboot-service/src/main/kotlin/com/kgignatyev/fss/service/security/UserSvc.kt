@@ -3,7 +3,7 @@ package com.kgignatyev.fss.service.security
 import com.kgignatyev.fss.service.common.data.SearchableRepo
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.NoRepositoryBean
-import java.util.Optional
+import java.util.*
 
 @NoRepositoryBean
 interface UserSvc: SearchableRepo<User>, CrudRepository<User, String> {

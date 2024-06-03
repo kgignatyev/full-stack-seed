@@ -1,6 +1,5 @@
 package com.kgignatyev.fss.service.security.storage
 
-import com.kgignatyev.fss.service.security.SecurityPolicy
 import com.kgignatyev.fss.service.security.User
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.repository.CrudRepository

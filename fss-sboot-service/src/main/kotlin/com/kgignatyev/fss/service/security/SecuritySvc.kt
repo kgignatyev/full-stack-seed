@@ -1,12 +1,8 @@
 package com.kgignatyev.fss.service.security
 
 import com.kgignatyev.fss.service.UnauthorizedException
-import com.kgignatyev.fss.service.accounts.AccountEvent
 import com.kgignatyev.fss.service.common.events.CrudEventType
-import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1User
-import org.springframework.http.ResponseEntity
 import java.util.*
-import kotlin.jvm.Throws
 
 
 interface SecuritySvc {

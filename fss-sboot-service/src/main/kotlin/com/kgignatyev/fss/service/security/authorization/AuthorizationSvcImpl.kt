@@ -57,7 +57,7 @@ class AuthorizationSvcImpl(val policiesRepo: SecurityPoliciesRepo) : Authorizati
 
     private fun resourceAsText(resource: String): String {
         val inputStream = this.javaClass.classLoader.getResourceAsStream(resource)
-        return IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
+        return IOUtils.toString(inputStream, StandardCharsets.UTF_8.name())
     }
 
     @Cacheable("enforcers")

@@ -1,21 +1,17 @@
 package com.kgignatyev.fss.service.accounts.svc
 
-import com.kgignatyev.fss.service.common.data.SearchResult
-import com.kgignatyev.fss.service.accounts.AccountsSvc
 import com.kgignatyev.fss.service.accounts.Account
 import com.kgignatyev.fss.service.accounts.AccountEvent
+import com.kgignatyev.fss.service.accounts.AccountsSvc
 import com.kgignatyev.fss.service.accounts.storage.AccountsRepo
 import com.kgignatyev.fss.service.common.data.Operation
 import com.kgignatyev.fss.service.common.data.Operation.READ
+import com.kgignatyev.fss.service.common.data.SearchResult
 import com.kgignatyev.fss.service.common.events.CrudEventType
-import com.kgignatyev.fss.service.security.AuthorizationSvc
 import com.kgignatyev.fss.service.security.SecuritySvc
-import com.kgignatyev.fss.service.security.UserSvc
-import jakarta.annotation.Resource
 import jakarta.transaction.Transactional
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.CrudRepository
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.util.*
 

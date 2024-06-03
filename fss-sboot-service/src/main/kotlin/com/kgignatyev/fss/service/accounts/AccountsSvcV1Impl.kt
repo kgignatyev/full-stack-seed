@@ -1,10 +1,6 @@
 package com.kgignatyev.fss.service.accounts
 
 import com.kgignatyev.fss.service.common.api.APIHelpers.ofOptional
-import com.kgignatyev.fss.service.common.data.Operation.DELETE
-import com.kgignatyev.fss.service.common.data.Operation.READ
-import com.kgignatyev.fss.service.common.data.Operation.UPDATE
-import com.kgignatyev.fss.service.security.SecuritySvc
 import com.kgignatyev.fss_svc.api.fsssvc.AccountsServiceV1Api
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1Account
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1AccountListResult
@@ -16,7 +12,6 @@ import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
-
 
 
 @RequestMapping(path = ["/api"])

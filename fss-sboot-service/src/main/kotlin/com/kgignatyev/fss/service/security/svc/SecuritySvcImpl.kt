@@ -3,12 +3,9 @@ package com.kgignatyev.fss.service.security.svc
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.kgignatyev.fss.service.UnauthorizedException
-import com.kgignatyev.fss.service.accounts.Account
-import com.kgignatyev.fss.service.accounts.AccountEvent
 import com.kgignatyev.fss.service.common.data.Operation.DELETE
 import com.kgignatyev.fss.service.common.data.Operation.UPDATE
 import com.kgignatyev.fss.service.common.events.CrudEventType
-import com.kgignatyev.fss.service.job.Job
 import com.kgignatyev.fss.service.security.*
 import com.kgignatyev.fss.service.security.storage.SecurityPoliciesRepo
 import jakarta.annotation.Resource
@@ -94,7 +91,7 @@ class SecuritySvcImpl(
         val restTemplate = RestTemplate()
         val headers = HttpHeaders()
         headers.set("authorization", SecurityContext.httpHeaders.get()["authorization"]!!)
-        val r = HttpEntity("", headers);
+        val r = HttpEntity("", headers)
         val res = restTemplate.exchange("$issuer/userinfo", HttpMethod.GET,r,String::class.java)
         val info = om.readTree(  res.body ) as ObjectNode
         logger.debug("Received UserInfo: $info")

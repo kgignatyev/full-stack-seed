@@ -1,6 +1,5 @@
 package com.kgignatyev.fss.service.security.svc
 
-import com.kgignatyev.fss.service.accounts.Account
 import com.kgignatyev.fss.service.common.data.SearchResult
 import com.kgignatyev.fss.service.security.User
 import com.kgignatyev.fss.service.security.UserSvc

@@ -60,7 +60,7 @@ interface SearchableRepo<T> {
                             predicates.add(builder.like(getF, noQuotesCriteria))
                         }
                         "ilike" -> {
-                            predicates.add(builder.like(builder.lower(getF), noQuotesCriteria.toLowerCase()))
+                            predicates.add(builder.like(builder.lower(getF), noQuotesCriteria.lowercase()))
                         }
                         else -> {
                             throw IllegalArgumentException("Unknown operator: $op")
@@ -93,7 +93,7 @@ interface SearchableRepo<T> {
               val parts = sort.split(" ")
                 if (parts.size == 2) {
                     val ( field, dir) = parts
-                    pageRequest.withSort(Sort.Direction.fromString(dir.toUpperCase()), field)
+                    pageRequest.withSort(Sort.Direction.fromString(dir.uppercase()), field)
                 }else{
                     pageRequest.withSort(Sort.Direction.ASC, sort)
                 }

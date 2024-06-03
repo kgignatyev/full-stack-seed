@@ -5,7 +5,6 @@ import com.kgignatyev.fss.service.common.events.CrudEventType
 import com.kgignatyev.fss.service.job.JobEvent
 import com.kgignatyev.fss.service.job.JobEventEvent
 import com.kgignatyev.fss.service.job.JobEventService
-import com.kgignatyev.fss.service.job.JobService
 import com.kgignatyev.fss.service.job.storage.JobEventsRepo
 import com.kgignatyev.fss.service.job.storage.JobsRepo
 import com.kgignatyev.fss.service.security.SecuritySvc

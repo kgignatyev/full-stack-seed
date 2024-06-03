@@ -1,7 +1,6 @@
 package com.kgignatyev.fss.service.security.svc
 
 import com.kgignatyev.fss.service.security.CallerInfo
-import com.kgignatyev.fss.service.security.CallerInfo.Companion.anonymousCaller
 import jakarta.annotation.Resource
 import jakarta.servlet.Filter
 import jakarta.servlet.FilterChain

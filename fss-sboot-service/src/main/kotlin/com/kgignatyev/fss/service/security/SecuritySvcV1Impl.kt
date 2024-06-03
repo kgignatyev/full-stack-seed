@@ -1,7 +1,6 @@
 package com.kgignatyev.fss.service.security
 
 import com.kgignatyev.fss.service.common.api.APIHelpers.ofOptional
-import com.kgignatyev.fss.service.common.api.V1StatusHelpers.OK
 import com.kgignatyev.fss.service.common.api.V1StatusHelpers.OK_ENTITY
 import com.kgignatyev.fss_svc.api.fsssvc.SecurityServiceV1Api
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.*
