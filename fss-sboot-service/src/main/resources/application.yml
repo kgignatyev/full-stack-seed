@@ -73,8 +73,6 @@ okta:
     issuer: https://kgignatyev.auth0.com/
     # Replace with the API Identifier for your Auth0 API.
     audience: http://local-dev
-#    client-id: 1nFDckiGr2BEmtdPrEZD8jMLgsMgTquy
-#    client-secret: KXC3BLPhKcMGVv8VENz5jWMyv-7wmUpsTo6JvF-ICbgy6ftTl2s19UwP05W_2sd8
 
 casbin:
   enable-log: true
