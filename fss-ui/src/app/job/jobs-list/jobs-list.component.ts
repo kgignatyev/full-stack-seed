@@ -78,7 +78,7 @@ export class JobsListComponent {
         }
 
         console.info(JSON.stringify(this.searchRequest))
-        if( !this.authz.token$.getValue() ){
+        if( !this.authz.idToken$.getValue() ){
           console.info("No token")
           return Promise.resolve({
             data: [],

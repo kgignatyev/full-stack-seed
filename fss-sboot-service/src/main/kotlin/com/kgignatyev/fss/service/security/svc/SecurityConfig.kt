@@ -44,6 +44,7 @@ class SecurityConfig {
                     .jwt( withDefaults())
 
             }
+            .csrf { csrf -> csrf.disable() }
             .userDetailsService(userDetailsService)
             .build()
     }

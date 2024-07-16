@@ -1,5 +1,5 @@
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {Observable, throwError} from "rxjs";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import {Observable, switchMap, throwError} from "rxjs";
 import {UUID} from "angular2-uuid";
 import {Injectable} from "@angular/core";
 import {catchError} from "rxjs/operators";
@@ -16,13 +16,19 @@ export class CidAndJWTInterceptor implements HttpInterceptor {
     let updatedHeaders = req.headers.set('cid', cid);
     //todo:limit to valid urls
     if( this.autzSvc.isAuthenticated ){
-      const jwt = this.autzSvc.token$.value;
-      updatedHeaders = updatedHeaders.set('Authorization', 'Bearer ' + jwt)
+      const authTokenObservable = this.autzSvc.authService.getAccessTokenSilently();
+
       const impersonateUserID = localStorage.getItem('impersonate_user_id')
       if( impersonateUserID ){
         updatedHeaders = updatedHeaders.set('impersonate_user_id', impersonateUserID)
       }
-      // console.log("added auth header: " + storage?.__raw)
+      return authTokenObservable.pipe(
+        switchMap(token => {
+          updatedHeaders = updatedHeaders.set('Authorization', 'Bearer ' + token)
+          console.info("adding auth header: " + token)
+          return next.handle(modifiedReq);
+        })
+      );
     }
     const modifiedReq = req.clone({headers: updatedHeaders});
     return next.handle(modifiedReq);

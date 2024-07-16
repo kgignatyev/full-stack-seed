@@ -1,11 +1,11 @@
 logging:
   level:
-    root: info
+    root: INFO
 #    com:
 #      okta: TRACE
-#    org:
-#      springframework:
-#        security: TRACE
+    org:
+      springframework:
+        security: TRACE
 
 #  pattern:
 #    correlation: [{traceId:-},{spanId:-}]
@@ -13,9 +13,7 @@ logging:
 spring:
   application:
       name: fss
-  #  cache:
-  #    jcache:
-  #     config: "classpath:ehcache.xml"
+
 
   jmx:
     enabled: false
@@ -45,10 +43,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: jobs
+
   cache:
-    jcache:
-      config: classpath:ehcache.xml
-      provider: org.ehcache.jsr107.EhcacheCachingProvider
+    type: HAZELCAST
+    hazelcast:
+      config: classpath:hazelcast.yaml
+      type: SERVER
+
 
 
 management:
@@ -72,8 +73,11 @@ okta:
     issuer: https://kgignatyev.auth0.com/
     # Replace with the API Identifier for your Auth0 API.
     audience: http://local-dev
+#    client-id: 1nFDckiGr2BEmtdPrEZD8jMLgsMgTquy
+#    client-secret: KXC3BLPhKcMGVv8VENz5jWMyv-7wmUpsTo6JvF-ICbgy6ftTl2s19UwP05W_2sd8
 
 casbin:
   enable-log: true
+
 
 

@@ -19,3 +19,6 @@ Feature: System management
       | testUser2  | no         |
       | admin      | yes        |
       | prometheus | yes        |
+
+  Scenario: finalize tests
+    Then write custom parameters file for cluecumber

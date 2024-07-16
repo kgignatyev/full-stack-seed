@@ -15,7 +15,7 @@ fi
 
 #set -x
 
-CUCUMBER_PARAMS=" --tags \"not @scale\""
+CUCUMBER_PARAMS=" --tags \"not @scalability\""
 if [[ "" != "$1" ]]; then
   CUCUMBER_PARAMS="$*"
 fi

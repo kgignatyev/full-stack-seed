@@ -8,7 +8,7 @@ import {Injectable} from "@angular/core";
   providedIn: 'root'
 })
 export class AuthzService {
-  token$: BehaviorSubject<string|undefined> = new BehaviorSubject<string|undefined>("");
+  idToken$: BehaviorSubject<string|undefined> = new BehaviorSubject<string|undefined>("");
   public userAuth0$ = new BehaviorSubject<any>(null);
   // public hasAdminRole = false
   public isAuthenticated = false;
@@ -43,9 +43,9 @@ export class AuthzService {
         this.tokenClaimsSub = authService.idTokenClaims$.subscribe(t => {
           console.info("token:" + JSON.stringify(t))
           if( t ){
-            this.token$.next(t.__raw)
+            this.idToken$.next(t.__raw)
           }else {
-            this.token$.next(undefined)
+            this.idToken$.next(undefined)
           }
         })
         this.userSub = authService.user$.subscribe(u => {

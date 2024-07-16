@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast xmlns="http://www.hazelcast.com/schema/config"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.hazelcast.com/schema/config
+           http://www.hazelcast.com/schema/config/hazelcast-config-5.4.xsd">
+
+
+
+    <cluster-name>fss-dev</cluster-name>
+    <network>
+        <port auto-increment="true">5701</port>
+        <join>
+            <multicast enabled="false">
+            </multicast>
+            <kubernetes enabled="false">
+                <namespace>fss</namespace>
+                <service-name>fss-hz</service-name>
+            </kubernetes>
+        </join>
+    </network>
+
+    <map name="enforcers">
+        <in-memory-format>OBJECT</in-memory-format>
+         <map-store enabled="false" >
+        </map-store>
+    </map>
+
+</hazelcast>
