@@ -11,6 +11,7 @@ import {
 } from "../../generated/api_client";
 import {AuthzService} from "../../services/authz.service";
 import {DxDataGridComponent} from "devextreme-angular";
+import {ContextService} from "../../services/context.service";
 
 @Component({
   selector: 'app-jobs-list',
@@ -25,12 +26,12 @@ export class JobsListComponent {
   searchRequest: V1SearchRequest = {pagination: {
       offset: 0,
       limit: this.pageSize
-    }, searchExpression: ""};
+    }, searchExpression: "",sortExpression: ""};
 
   @ViewChild('jobsDataGrid', {static: false}) jobsDataGrid: DxDataGridComponent | undefined;
 
 
-  constructor( private jobsService: JobsServiceV1Service, private authz: AuthzService) {
+  constructor( private jobsService: JobsServiceV1Service, private authz: AuthzService, private cxtSvc:ContextService) {
     this.jobsDataStore = new CustomStore({
       key: 'id',
       useDefaultSearch: true,
@@ -52,7 +53,7 @@ export class JobsListComponent {
            'totalSummary',
            'userData' */
 
-        console.info(JSON.stringify(loadOptions))
+        console.info("loadOptions",loadOptions)
         if (loadOptions['skip']) {
           this.searchRequest.pagination.offset = loadOptions['skip']
         } else {
@@ -76,8 +77,14 @@ export class JobsListComponent {
         }else{
           this.searchRequest.searchExpression = ""
         }
+        if( loadOptions['sort'] ){
+          const sorts = loadOptions['sort'] as Array<any>
+          this.searchRequest.sortExpression = sorts.map((s) => s.selector + " " + (s.desc ? "desc" : "asc")).join(",")
+        }else {
+          this.searchRequest.sortExpression = "createdAt desc"
+        }
 
-        console.info(JSON.stringify(this.searchRequest))
+        console.info("search request",this.searchRequest)
         if( !this.authz.idToken$.getValue() ){
           console.info("No token")
           return Promise.resolve({
@@ -116,7 +123,7 @@ export class JobsListComponent {
   }
 
   newJob() {
-
+    this.cxtSvc.infoAlert("Let's create a new job")
   }
 
   apply(j: V1Job) {

@@ -45,12 +45,14 @@ import {CidAndJWTInterceptor, ErrorCatchingInterceptor} from "./services/interce
 import {AuthClientConfig, AuthConfig, AuthHttpInterceptor, AuthModule} from "@auth0/auth0-angular";
 import {AuthzService} from "./services/authz.service";
 import {firstValueFrom} from "rxjs";
+import { AlertsComponent } from './layout/alerts/alerts.component';
 @NgModule({ declarations: [
         AppComponent,
         CompaniesListComponent,
         CompanyComponent,
         JobsListComponent,
-        JobComponent
+        JobComponent,
+        AlertsComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         DxAutocompleteModule,

@@ -87,15 +87,15 @@ interface SearchableRepo<T> {
     }
 
     fun pageableOf(pageN: Int, limit: Int, sortExpr: String): Pageable {
-        val pageRequest = PageRequest.of(pageN, limit)
+        var pageRequest = PageRequest.of(pageN, limit)
         sortExpr.split(",")
             .map { it.trim() }.forEach { sort ->
               val parts = sort.split(" ")
                 if (parts.size == 2) {
                     val ( field, dir) = parts
-                    pageRequest.withSort(Sort.Direction.fromString(dir.uppercase()), field)
+                    pageRequest = pageRequest.withSort(Sort.Direction.fromString(dir.uppercase()), field)
                 }else{
-                    pageRequest.withSort(Sort.Direction.ASC, sort)
+                    pageRequest = pageRequest.withSort(Sort.Direction.ASC, sort)
                 }
             }
         return pageRequest

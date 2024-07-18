@@ -26,6 +26,7 @@ export class CidAndJWTInterceptor implements HttpInterceptor {
         switchMap(token => {
           updatedHeaders = updatedHeaders.set('Authorization', 'Bearer ' + token)
           console.info("adding auth header: " + token)
+          const modifiedReq = req.clone({headers: updatedHeaders});
           return next.handle(modifiedReq);
         })
       );
