@@ -627,12 +627,16 @@ components:
         createdAt:
           type: string
           format: date-time
-        sourceId:
+        updatedAt:
+          type: string
+          format: date-time
+        source:
           type: string
         banned:
           $ref: '#/components/schemas/v1.YN'
         notes:
           type: string
+
       required:
         - id
         - name

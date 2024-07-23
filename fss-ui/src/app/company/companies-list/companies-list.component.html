@@ -19,6 +19,10 @@
   </dxo-toolbar>
   <dxi-column dataField="id" [allowFiltering]="false" cellTemplate="idCT"></dxi-column>
   <dxi-column dataField="name"></dxi-column>
+  <dxi-column dataField="banned"></dxi-column>
+  <dxi-column dataField="source"></dxi-column>
+  <dxi-column dataField="createdAt"></dxi-column>
+  <dxi-column dataField="updatedAt"></dxi-column>
   <div *dxTemplate="let cell of 'idCT'">
     <a [routerLink]="['/companies', cell.data.id]">{{cell.data.id}}</a>
   </div>

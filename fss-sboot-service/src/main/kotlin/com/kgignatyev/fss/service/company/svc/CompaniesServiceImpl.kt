@@ -1,0 +1,31 @@
+package com.kgignatyev.fss.service.company.svc
+
+import com.kgignatyev.fss.service.accounts.AccountsSvc
+import com.kgignatyev.fss.service.common.data.SearchResult
+import com.kgignatyev.fss.service.company.CompaniesService
+import com.kgignatyev.fss.service.company.Company
+import com.kgignatyev.fss.service.company.storage.CompaniesRepo
+import com.kgignatyev.fss.service.security.SecuritySvc
+import jakarta.transaction.Transactional
+import org.springframework.data.repository.CrudRepository
+import org.springframework.stereotype.Service
+
+@Service
+@Transactional
+class CompaniesServiceImpl(val _companiesRepo: CompaniesRepo, val accountsSvc: AccountsSvc,
+                           val securitySvc: SecuritySvc
+): CompaniesService, CrudRepository<Company, String> by _companiesRepo{
+
+    override fun search(searchExpr: String, sortExpr: String, offset: Long, limit: Int): SearchResult<Company> {
+        return searchImpl(searchExpr,sortExpr, offset, limit, _companiesRepo)
+    }
+
+    override fun <S : Company?> save(company: S & Any): S & Any {
+        val a = accountsSvc.findById(company.accountId).get()
+        if( company.accountId == "my") {
+            company.accountId = a.id
+        }
+        securitySvc.checkCurrentUserAuthorized(a, "update")
+        return _companiesRepo.save(company)
+    }
+}

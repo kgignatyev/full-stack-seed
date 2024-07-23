@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component
 class CompanyToApi: Converter<Company, V1Company> {
     override fun convert(from: Company): V1Company {
         return V1Company().id(from.id).name(from.name)
+            .source(from.source).banned(from.banned)
+            .notes(from.notes)
+            .createdAt(from.createdAt).updatedAt(from.updatedAt)
     }
 }
 
@@ -19,6 +22,13 @@ class ApiToCompany: Converter<V1Company, Company> {
         val r = Company()
         r.id = from.id
         r.name = from.name
+        r.banned = from.banned
+        r.notes = from.notes
+        r.source = from.source
+        r.createdAt = from.createdAt
+        if( from.updatedAt != null) {
+            r.updatedAt = from.updatedAt
+        }
         return r
     }
 }

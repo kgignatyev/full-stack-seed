@@ -5,7 +5,9 @@ import {Subscription} from "rxjs";
 import {ContextService} from "../../services/context.service";
 
 function makeNewCompany():V1Company {
-  return {banned: V1YN.N, createdAt: "", id: "", name: "", notes: "", sourceId: ""};
+  return {banned: V1YN.N, createdAt: new Date().toISOString(),
+    accountId: "my",
+    id: "", name: "", notes: "", source: ""};
 }
 
 @Component({

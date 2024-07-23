@@ -8,13 +8,18 @@ import java.time.OffsetDateTime
 
 
 @Entity
+@Table(name = "companies_cmpn")
 class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "cmpn_id")
     var id: String = ""
+    @Column(name = "acnt_id")
+    var accountId: String = ""
     var name = ""
-    var sourceId: String = ""
+    @Column(name = "source")
+    var source: String = ""
 
     @Enumerated(EnumType.STRING)
     var banned: V1YN = V1YN.N
