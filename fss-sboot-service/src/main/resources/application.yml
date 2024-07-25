@@ -46,9 +46,13 @@ spring:
 
   cache:
     type: HAZELCAST
-    hazelcast:
-      config: classpath:hazelcast.yaml
-      type: SERVER
+
+
+  hazelcast:
+    config: classpath:hazelcast.xml
+
+
+
 
 
 

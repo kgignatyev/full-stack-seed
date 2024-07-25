@@ -25,11 +25,11 @@ class HazelcastCustomizer(): CacheManagerCustomizer<CacheManager> {
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
     override fun customize(cacheManager: CacheManager) {
         logger.info("customizing cache manager $cacheManager")
-        if (cacheManager is HazelcastCacheManager) {
-            val hzCm:HazelcastCacheManager = cacheManager
-            hzCm.createCache("enforcers", enforcersConfig())
-            logger.info("cacheNames: ${hzCm.cacheNames}")
-        }
+//        if (cacheManager is HazelcastCacheManager) {
+//            val hzCm:HazelcastCacheManager = cacheManager
+//            hzCm.createCache("enforcers", enforcersConfig())
+//            logger.info("cacheNames: ${hzCm.cacheNames}")
+//        }
     }
 
     private fun enforcersConfig(): CacheConfiguration<String,Any> {

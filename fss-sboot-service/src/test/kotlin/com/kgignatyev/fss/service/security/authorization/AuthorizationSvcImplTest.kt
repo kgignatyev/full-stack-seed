@@ -7,6 +7,7 @@ import com.kgignatyev.fss.service.security.storage.SecurityPoliciesRepo
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
+import org.springframework.cache.CacheManager
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -16,6 +17,7 @@ class AuthorizationSvcImplTest {
 
     @Test
     fun testGetSecurityPoliciesForUser() {
+        val cacheManagerMock = mock(CacheManager::class.java)
         val securityPoliciesRepoMock = mock(SecurityPoliciesRepo::class.java)
         val u1 = User().apply { id = "u1" }
         Mockito.`when`(securityPoliciesRepoMock.findByUserId(u1.id))
@@ -42,7 +44,7 @@ class AuthorizationSvcImplTest {
                 )
             )
 
-        val svc = AuthorizationSvcImpl(securityPoliciesRepoMock)
+        val svc = AuthorizationSvcImpl(securityPoliciesRepoMock,cacheManagerMock )
         svc.enableCasbinLogging = true
         val u1Enforcer = svc.createEnforcerForUser(u1.id)
         val u2Enforcer = svc.createEnforcerForUser(u2.id)
