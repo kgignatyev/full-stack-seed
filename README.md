@@ -24,11 +24,12 @@ I used to be big fan of Hibernate but over the years I learned that just a tad m
 
 ## Sample screens
 Jobs
-![jobs](fss-sboot-service/docs/jobs.png)
+![jobs](full-stack-dev/docs/jobs-list.png)
 Company response
-![company response](fss-sboot-service/docs/response-dialog.png)
+![company response](full-stack-dev/docs/company-response.png)
 Login with Auth0
 <br/>
-<img src="fss-sboot-service/docs/login.png" alt="drawing" width="200"/>
+![login](full-stack-dev/docs/login.png)
+
 
 
