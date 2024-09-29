@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.0</version>
+        <version>3.3.4</version>
     </parent>
     <name>fss-acceptance-tests</name>
     <groupId>com.kgignatyev.fss</groupId>
@@ -18,10 +18,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cucumber.version>7.18.0</cucumber.version>
-        <jackson.version>2.17.1</jackson.version>
+        <jackson.version>2.18.0</jackson.version>
         <httpcomponents.version>5.3</httpcomponents.version>
-        <kotlin.version>2.0.0</kotlin.version>
-        <kotlin-coroutines.version>1.8.1</kotlin-coroutines.version>
+        <kotlin.version>2.0.20</kotlin.version>
+        <kotlin-coroutines.version>1.9.0</kotlin-coroutines.version>
         <moshi.version>1.15.1</moshi.version>
         <okhttp.version>4.12.0</okhttp.version>
         <spring-boot-run-jvm-extra></spring-boot-run-jvm-extra>
