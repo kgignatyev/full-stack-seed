@@ -4,7 +4,7 @@ export API_RELEASE=$(yq  '.info.version' definitions/fss-svc.v1.openapi.yaml)
 set -e
 set -x
 
-export OPENAPI_GENERATOR_DOCKER_TAG=v7.7.0
+export OPENAPI_GENERATOR_DOCKER_TAG=v7.8.0
 
 scope=${1:-all}
 
