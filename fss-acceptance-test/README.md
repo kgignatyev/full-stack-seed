@@ -5,7 +5,7 @@ Note, by default, it runs against the local server at http://localhost:8080
 in order to target a different server, set the environment variable `SPRING_PROFILE`
 
 ```shell
-export SPRING_PROFILE=dev
+export SPRING_PROFILE=local
 ```
 
 by default it runs management tests
@@ -17,7 +17,7 @@ by default it runs management tests
 to run all tests
 
 ```shell
-./run-tests.sh  --tags "\"@test-init  or  @games-management or @scale\""
+./run-tests.sh  --tags "\"@test-init  or  @create-account or @scale\""
 ```
 
 
