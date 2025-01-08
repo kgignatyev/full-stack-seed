@@ -22,11 +22,11 @@ class Account:Securable {
     var ownerId  = ""
     var active = V1YN.Y
     @CreationTimestamp
-    @Column(name = "created_at")
-    var createdAt:OffsetDateTime = OffsetDateTime.now()
+    @Column(name = "created_at", updatable = false)
+    var createdAt:OffsetDateTime? = OffsetDateTime.now()
     @UpdateTimestamp
     @Column(name = "updated_at")
-    var updatedAt:OffsetDateTime  = createdAt
+    var updatedAt:OffsetDateTime?  = createdAt
 
     override fun type(): SecurableType {
         return SecurableType.ACCOUNT

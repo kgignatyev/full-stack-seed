@@ -9,6 +9,7 @@ import com.kgignatyev.fss.service.security.SecuritySvc
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
+import java.time.OffsetDateTime
 
 @Service
 @Transactional
@@ -26,6 +27,10 @@ class CompaniesServiceImpl(val _companiesRepo: CompaniesRepo, val accountsSvc: A
             company.accountId = a.id
         }
         securitySvc.checkCurrentUserAuthorized(a, "update")
+        company.updatedAt = OffsetDateTime.now()
+        if( company.id == "") {
+            company.createdAt = company.updatedAt!!
+        }
         return _companiesRepo.save(company)
     }
 }

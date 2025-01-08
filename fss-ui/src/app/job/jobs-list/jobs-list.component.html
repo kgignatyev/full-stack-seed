@@ -28,7 +28,7 @@
   <dxi-column dataField="createdAt"  [allowSearch]="false"></dxi-column>
   <dxi-column caption="..." [allowSearch]="false"  cellTemplate="actionsCT"></dxi-column>
   <div *dxTemplate="let cell of 'actionsCT'">
-    <dx-button (onClick)="apply(cell.data)" hint="reject job" class="text-success"
+    <dx-button (onClick)="apply(cell.data)" hint="applied" class="text-success"
       [disabled]=" 'FOR_REVIEW' != cell.data.status" >
       <i class="fa-solid fa-thumbs-up"></i>
     </dx-button>

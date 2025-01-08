@@ -19,4 +19,5 @@ interface JobsRepo : CrudRepository<Job, String>, JpaSpecificationExecutor<Job> 
 @Transactional
 interface JobEventsRepo : CrudRepository<JobEvent, String>, JpaSpecificationExecutor<JobEvent> {
     fun deleteByJobId(id: String)
+    fun findByJobIdOrderByCreatedAtDesc(id: String): List<JobEvent>
 }

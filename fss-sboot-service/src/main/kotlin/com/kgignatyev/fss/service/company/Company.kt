@@ -26,10 +26,10 @@ class Company {
     var notes: String = ""
 
     @CreationTimestamp
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     var createdAt: OffsetDateTime = OffsetDateTime.now()
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    var updatedAt: OffsetDateTime = createdAt
+    var updatedAt: OffsetDateTime? = createdAt
 }

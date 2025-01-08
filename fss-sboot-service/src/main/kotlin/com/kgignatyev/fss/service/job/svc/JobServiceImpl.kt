@@ -4,12 +4,10 @@ import com.kgignatyev.fss.service.accounts.AccountEvent
 import com.kgignatyev.fss.service.accounts.AccountsSvc
 import com.kgignatyev.fss.service.common.data.SearchResult
 import com.kgignatyev.fss.service.common.events.CrudEventType
-import com.kgignatyev.fss.service.job.Job
-import com.kgignatyev.fss.service.job.JobEventEvent
-import com.kgignatyev.fss.service.job.JobEventService
-import com.kgignatyev.fss.service.job.JobService
+import com.kgignatyev.fss.service.job.*
 import com.kgignatyev.fss.service.job.storage.JobsRepo
 import com.kgignatyev.fss.service.security.SecuritySvc
+import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1CompanyResponse
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1JobEventType
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1JobStatus
 import jakarta.transaction.Transactional
@@ -38,6 +36,36 @@ class JobServiceImpl(val _jobsRepo: JobsRepo, val jobEventService: JobEventServi
         }
         securitySvc.checkCurrentUserAuthorized(a, "update")
         return _jobsRepo.save(job)
+    }
+
+    @ApplicationModuleListener
+    @Transactional
+    fun onJobEvent(jEvent: JobEventEvent){
+        val event = jEvent.data
+        val job = _jobsRepo.findById(event.jobId).orElseThrow { IllegalArgumentException("Job not found") }
+        val currentJobStatus = job.status
+        when(event.eventType){
+            V1JobEventType.APPLIED -> job.status = V1JobStatus.APPLIED
+            V1JobEventType.APPLIED_VIA_AGENCY -> job.status = V1JobStatus.APPLIED_VIA_AGENCY
+            V1JobEventType.INTERVIEW_SCHEDULED -> job.status = V1JobStatus.INTERVIEWING
+            V1JobEventType.INTERVIEWED -> job.status = V1JobStatus.INTERVIEWING
+            V1JobEventType.REJECTED -> {
+                job.status = V1JobStatus.REJECTED_BY_COMPANY
+                job.companyResponse = V1CompanyResponse.REJECTED
+            }
+            V1JobEventType.HIRED -> job.status = V1JobStatus.HIRED
+            V1JobEventType.POSITION_CLOSED -> {
+                job.status = V1JobStatus.POSITION_CLOSED
+                job.companyResponse = V1CompanyResponse.FILLED
+
+            }
+            V1JobEventType.CANCELLED -> {}
+            V1JobEventType.OTHER -> {}
+            V1JobEventType.NOT_INTERESTED -> job.status = V1JobStatus.NOT_INTERESTED
+        }
+        if (currentJobStatus != job.status) {
+            save(job)
+        }
     }
 
 

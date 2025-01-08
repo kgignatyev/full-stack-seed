@@ -23,6 +23,10 @@ class JobEventServiceImpl( val jobEventsRepo: JobEventsRepo,
         jobEventsRepo.deleteByJobId(id)
     }
 
+    override fun findByJobId(id: String): List<JobEvent> {
+        return jobEventsRepo.findByJobIdOrderByCreatedAtDesc(id)
+    }
+
     override fun search(searchExpr: String, sortExpr: String, offset: Long, limit: Int): SearchResult<JobEvent> {
         return searchImpl(searchExpr, sortExpr, offset, limit, jobEventsRepo)
     }

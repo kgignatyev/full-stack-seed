@@ -564,6 +564,7 @@ components:
         - APPLIED_VIA_AGENCY
         - INTERVIEW_SCHEDULED
         - INTERVIEWED
+        - NOT_INTERESTED
         - REJECTED
         - HIRED
         - POSITION_CLOSED

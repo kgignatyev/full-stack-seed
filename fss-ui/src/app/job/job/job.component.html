@@ -1,16 +1,25 @@
 <div class="row">
   <div class="offset-md-1 col-md-10">
-    <dx-form [(formData)]="job"
-             [colCount]="2"  >
+    <dx-form [(formData)]="job" #jobForm
+             [colCount]="2"
+             [customizeItem]="customizeJobFormItem">
+
     </dx-form>
   </div>
 </div>
+<br/>
 <div class="row">
   <div class="offset-md-4 col-md-1">
-    <dx-button text="Cancel" (onClick)="cancel()"></dx-button>
+    <dx-button text="Cancel" (onClick)="cancel()" class="btn btn-outline-secondary" ></dx-button>
   </div>
   <div class="col-md-1">
-    <dx-button text="Save" (onClick)="saveJob()"></dx-button>
+    <dx-button text="Save" (onClick)="saveJob()" [class]="'btn btn-outline-info'"></dx-button>
   </div>
 </div>
-
+<h3>Events</h3>
+<div class="row">
+  <div class="col-md-12">
+    <dx-data-grid [dataSource]="jobEvents" [showBorders]="true">
+    </dx-data-grid>
+  </div>
+</div>

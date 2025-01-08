@@ -5,13 +5,14 @@ import DataSource from "devextreme/data/data_source";
 import {
   JobsServiceV1Service,
   V1CompanyResponse,
-  V1Job,
+  V1Job, V1JobEvent, V1JobEventType,
   V1JobListResult,
   V1SearchRequest
 } from "../../generated/api_client";
 import {AuthzService} from "../../services/authz.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import {ContextService} from "../../services/context.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-jobs-list',
@@ -23,15 +24,18 @@ export class JobsListComponent {
   jobsDataSource: DevExpress.data.DataSource<V1Job, string>;
   pageSize = 20;
   companyResponsePopupVisible = false;
-  searchRequest: V1SearchRequest = {pagination: {
+  searchRequest: V1SearchRequest = {
+    pagination: {
       offset: 0,
       limit: this.pageSize
-    }, searchExpression: "",sortExpression: ""};
+    }, searchExpression: "", sortExpression: ""
+  };
 
   @ViewChild('jobsDataGrid', {static: false}) jobsDataGrid: DxDataGridComponent | undefined;
 
 
-  constructor( private jobsService: JobsServiceV1Service, private authz: AuthzService, private cxtSvc:ContextService) {
+  constructor(private jobsService: JobsServiceV1Service, private authz: AuthzService, private cxtSvc: ContextService,
+              private router: Router) {
     this.jobsDataStore = new CustomStore({
       key: 'id',
       useDefaultSearch: true,
@@ -53,7 +57,7 @@ export class JobsListComponent {
            'totalSummary',
            'userData' */
 
-        console.info("loadOptions",loadOptions)
+        console.info("loadOptions", loadOptions)
         if (loadOptions['skip']) {
           this.searchRequest.pagination.offset = loadOptions['skip']
         } else {
@@ -66,26 +70,26 @@ export class JobsListComponent {
         }
 
         if (loadOptions['filter']) {
-          const filters:string[] = []
+          const filters: string[] = []
           loadOptions['filter'].forEach((ff: any) => {
             if (Array.isArray(ff)) {
-              const fMatcher = ff[0]  + ' ilike "%' + ff[2] + '%"'
+              const fMatcher = ff[0] + ' ilike "%' + ff[2] + '%"'
               filters.push(fMatcher)
             }
           })
           this.searchRequest.searchExpression = filters.join(" OR ")
-        }else{
+        } else {
           this.searchRequest.searchExpression = ""
         }
-        if( loadOptions['sort'] ){
+        if (loadOptions['sort']) {
           const sorts = loadOptions['sort'] as Array<any>
           this.searchRequest.sortExpression = sorts.map((s) => s.selector + " " + (s.desc ? "desc" : "asc")).join(",")
-        }else {
+        } else {
           this.searchRequest.sortExpression = "createdAt desc"
         }
 
-        console.info("search request",this.searchRequest)
-        if( !this.authz.idToken$.getValue() ){
+        console.info("search request", this.searchRequest)
+        if (!this.authz.idToken$.getValue()) {
           console.info("No token")
           return Promise.resolve({
             data: [],
@@ -99,7 +103,7 @@ export class JobsListComponent {
           .then(response => {
             // @ts-ignore
             const data: V1JobListResult = response
-            console.info( "Jobs found: " + data.items.length)
+            console.info("Jobs found: " + data.items.length)
             return {
               data: data.items,
               totalCount: data.listSummary.total,
@@ -118,49 +122,56 @@ export class JobsListComponent {
     });
   }
 
-  refresh(){
+  refresh() {
     this.jobsDataGrid?.instance.refresh().then(d => console.info("Refreshed"))
   }
 
   newJob() {
-    this.cxtSvc.infoAlert("Let's create a new job")
+    this.router.navigate(['/jobs', 'new'])
   }
 
   apply(j: V1Job) {
-    const jClone = Object.assign({}, j)
-    jClone.status = "APPLIED"
-    this.updateJob(j,jClone)
-  }
-  reject(j: V1Job) {
-    const jClone = Object.assign({}, j)
-    jClone.status = "NOT_INTERESTED"
-    this.updateJob(j,jClone)
+    this.submitJobEvent(j, "APPLIED")
   }
 
-  updateJob(j: V1Job, jClone: V1Job) {
-    this.jobsService.updateJobById( j.id, jClone).subscribe(r => {
-      Object.assign(j, r)
+  reject(j: V1Job) {
+    this.submitJobEvent(j, "NOT_INTERESTED")
+  }
+
+  submitJobEvent(j: V1Job, evtType: V1JobEventType, callback?: () => void) {
+    const evt: V1JobEvent = {
+      id: "", notes: "",
+      jobId: j.id,
+      createdAt: new Date().toISOString(),
+      eventType: evtType
+    }
+
+    this.jobsService.createJobEvent(j.id, evt).subscribe(e => {
+      this.jobsService.getJobById(j.id).subscribe(ssd => {
+        Object.assign(j, ssd)
+        if (callback) {
+          callback()
+        }
+      })
     })
   }
 
-  selectedJob:V1Job | undefined
 
-  companyResponse(j:V1Job) {
+  selectedJob: V1Job | undefined
+
+  companyResponse(j: V1Job) {
     this.selectedJob = j
     this.companyResponsePopupVisible = true
   }
 
-  companyResponses:V1CompanyResponse[] = [ 'NONE', 'REJECTED', 'FILLED', 'CANCELLED']
+  companyResponses: V1JobEventType[] = ['OTHER', 'REJECTED', 'POSITION_CLOSED', 'CANCELLED']
 
-  recordCompanyResponse( r:V1CompanyResponse ) {
+  recordCompanyResponse(r: V1JobEventType) {
 
-    if( this.selectedJob ){
-      const jClone = Object.assign({}, this.selectedJob)
-      jClone.companyResponse = r
-      this.jobsService.updateJobById( this.selectedJob.id, jClone).subscribe(j => {
-        // @ts-ignore
-        this.selectedJob.companyResponse = j.companyResponse
+    if (this.selectedJob) {
+      this.submitJobEvent(this.selectedJob, r , () => {
         this.companyResponsePopupVisible = false
+
       })
     }
 

@@ -1,9 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import {Component, OnDestroy, ViewChild} from '@angular/core';
 import {ContextService} from "../../services/context.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthzService} from "../../services/authz.service";
 import {Subscription} from "rxjs";
 import {JobsServiceV1Service, V1Job} from "../../generated/api_client";
+import {SimpleItem} from "devextreme/ui/form";
+import DevExpress from "devextreme";
 
 @Component({
   selector: 'app-job',
@@ -13,6 +15,29 @@ export class JobComponent implements OnDestroy {
   private sub: Subscription;
   id!: string;
   job!: V1Job;
+  jobEvents: any[] = [];
+
+  @ViewChild('jobForm', {static: false}) jobForm!: DevExpress.ui.dxForm ;
+
+  customizeJobFormItem(item: SimpleItem) {
+    if (item.dataField == 'title') {
+      item.validationRules = [
+        {type: 'required', message: 'Title is required'},
+        {type: 'stringLength', max: 100, message: 'Title should be less than 100 characters'},
+        {type: 'stringLength', min: 5, message: 'Title should be at least 5 characters'}
+      ]
+    }
+
+    if( item.dataField == 'id' || item.dataField == 'accountId') {
+      item.editorOptions = {readOnly: true  }
+    }
+
+    if(item.dataField == 'events') {
+      item.visible = false;
+    }
+
+  }
+
   constructor(private authzSvc: AuthzService,
               private jobSvc: JobsServiceV1Service,
               private route: ActivatedRoute,
@@ -20,16 +45,26 @@ export class JobComponent implements OnDestroy {
               private cxtSvc: ContextService) {
     this.sub = this.route.paramMap.subscribe(params => {
       this.id = params.get('id') || 'no-id-param';
-      this.authzSvc.userAuth0$.subscribe(user => {
-        this.refreshJob();
-      })
+      if (this.id == 'new') {
+        this.jobEvents = [];
+        this.job = {
+          accountId: this.cxtSvc.currentAccount$.getValue(), notes: "", sourceId: "", id: '', title: '',
+          status: "APPLIED", createdAt: new Date().toISOString()
+        };
+      } else {
+        this.authzSvc.userAuth0$.subscribe(user => {
+          this.refreshJob();
+        })
+      }
 
     });
   }
 
   private refreshJob() {
+    this.jobEvents = []
     this.jobSvc.getJobById(this.id).subscribe(j => {
       this.job = j;
+      this.jobEvents = j.events || [];
     })
   }
 
@@ -40,12 +75,16 @@ export class JobComponent implements OnDestroy {
   }
 
   cancel() {
-    this.refreshJob()
+    this.router.navigate(['/jobs']);
   }
 
   saveJob() {
-    this.jobSvc.updateJobById(this.id, this.job).subscribe(j => {
-      this.job = j;
-    })
+    // @ts-ignore
+    const validationResults = this.jobForm.instance.validate()
+    if( validationResults.isValid) {
+      this.jobSvc.updateJobById(this.id, this.job).subscribe(j => {
+        this.job = j;
+      })
+    }
   }
 }

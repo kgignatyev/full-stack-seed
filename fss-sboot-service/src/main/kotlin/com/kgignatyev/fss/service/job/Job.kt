@@ -29,7 +29,7 @@ class Job {
     @Column(name = "notes")
     var notes = ""
     @CreationTimestamp
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     var createdAt:OffsetDateTime = OffsetDateTime.now()
     @UpdateTimestamp
     @Column(name = "updated_at")

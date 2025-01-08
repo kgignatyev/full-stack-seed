@@ -1,15 +1,19 @@
 <div class="row">
         <div class="offset-md-3 col-md-4">
-          <dx-form [(formData)]="company"
-                   [colCount]="1"  >
+          <dx-form [(formData)]="company" #companyForm
+                   [colCount]="1"
+                   [customizeItem]="customizeCompanyFormItem">
           </dx-form>
         </div>
 </div>
+<br/>
 <div class="row">
   <div class="offset-md-4 col-md-1">
-    <dx-button text="Cancel" (onClick)="cancel()"></dx-button>
+    <dx-button text="Cancel" (onClick)="cancel()"
+     class="btn btn-outline-secondary"></dx-button>
   </div>
   <div class="col-md-1">
-    <dx-button text="Save" (onClick)="saveCompany()"></dx-button>
+    <dx-button text="Save" (onClick)="saveCompany()"
+               class="btn btn-outline-info"></dx-button>
   </div>
 </div>

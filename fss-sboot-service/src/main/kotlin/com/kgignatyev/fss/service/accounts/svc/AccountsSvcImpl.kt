@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
+import java.time.OffsetDateTime
 import java.util.*
 
 @Service
@@ -34,9 +35,11 @@ class AccountsSvcImpl( val _accountCrudRepo:AccountsRepo, val publisher: Applica
         if( entity.id == "") {
             eventType = CrudEventType.CREATED
             entity.ownerId = securitySvc.getCallerInfo().currentUser.id
+            entity.createdAt = OffsetDateTime.now()
         }else{
             securitySvc.checkCurrentUserAuthorized(entity, Operation.UPDATE)
         }
+        entity.updatedAt = OffsetDateTime.now()
         val a = _accountCrudRepo.save(entity)
         securitySvc.onCrudEvent(a,eventType)
         return a

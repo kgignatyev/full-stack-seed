@@ -49,11 +49,14 @@ class JobsServiceV1ApiImpl(val jobsSvc: JobService,
 
     override fun createJobEvent(id: String, v1JobEvent: V1JobEvent): ResponseEntity<V1JobEvent> {
         val e = conv.convert( v1JobEvent, JobEvent::class.java)!!
+        e.jobId = id
         val r =  jobEventService.save( e )
         return ok( conv.convert(r, V1JobEvent::class.java))
     }
 
     override fun getJobById(id: String): ResponseEntity<V1Job> {
-        return ok( conv.convert(jobsSvc.findById(id).get(), V1Job::class.java))
+        val v1Job = conv.convert(jobsSvc.findById(id).get(), V1Job::class.java)
+        v1Job!!.events = jobEventService.findByJobId(id).map { conv.convert(it, V1JobEvent::class.java)!! }
+        return ok(v1Job)
     }
 }
