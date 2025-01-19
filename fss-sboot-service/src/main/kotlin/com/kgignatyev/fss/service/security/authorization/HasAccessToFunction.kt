@@ -28,6 +28,7 @@ class HasAccessToFunction : CustomFunction() {
         val rObj = requestObj.getValue(env) as Securable
         val res = when (pObj) {
             "*" ->  AviatorBoolean.TRUE
+            "" ->  AviatorBoolean.FALSE
             else -> {
 
                 val (type, id) = pObj.split("/")

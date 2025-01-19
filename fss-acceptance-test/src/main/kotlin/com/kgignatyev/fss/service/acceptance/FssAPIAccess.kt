@@ -83,7 +83,7 @@ class AuthorizationInterceptor(val cfg: CfgValues, val om:ObjectMapper) : Interc
             .add("username", user_name)
             .add("password", user_password)
             .add("audience", cfg.fssApiAudience)
-            .add("scope", "openid")
+            .add("scope", "openid profile email")
             .add("realm", "Username-Password-Authentication")
             .add("client_id", cfg.fssApiClientId)
             .add("client_secret", cfg.fssApiClientSecret)
