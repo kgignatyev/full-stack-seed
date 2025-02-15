@@ -12,8 +12,9 @@ function makeNewCompany():V1Company {
 }
 
 @Component({
-  selector: 'app-company',
-  templateUrl: './company.component.html'
+    selector: 'app-company',
+    templateUrl: './company.component.html',
+    standalone: false
 })
 export class CompanyComponent implements OnDestroy{
   private sub: Subscription;

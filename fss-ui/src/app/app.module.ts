@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import { NgModule, inject, provideAppInitializer } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -96,12 +96,10 @@ import { AlertsComponent } from './layout/alerts/alerts.component';
             deps: [],
             multi: false
         },
-        {
-            provide: APP_INITIALIZER,
-            useFactory: loadConfig,
-            multi: true,
-            deps: [HttpBackend, AuthClientConfig]
-        },
+        provideAppInitializer(() => {
+        const initializerFn = (loadConfig)(inject(HttpBackend), inject(AuthClientConfig));
+        return initializerFn();
+      }),
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthHttpInterceptor,

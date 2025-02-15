@@ -15,8 +15,9 @@ import {ContextService} from "../../services/context.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-jobs-list',
-  templateUrl: './jobs-list.component.html'
+    selector: 'app-jobs-list',
+    templateUrl: './jobs-list.component.html',
+    standalone: false
 })
 export class JobsListComponent {
 

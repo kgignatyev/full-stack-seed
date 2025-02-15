@@ -4,8 +4,9 @@ import notify from 'devextreme/ui/notify';
 import hideToasts from 'devextreme/ui/toast/hide_toasts';
 
 @Component({
-  selector: 'app-alerts',
-  templateUrl: './alerts.component.html'
+    selector: 'app-alerts',
+    templateUrl: './alerts.component.html',
+    standalone: false
 })
 export class AlertsComponent {
   alerts: Alert[] = [];

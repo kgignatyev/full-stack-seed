@@ -4,8 +4,9 @@ import {Router} from "@angular/router";
 import {ContextService} from "../../services/context.service";
 
 @Component({
-  selector: 'app-companies-list',
-  templateUrl: './companies-list.component.html',
+    selector: 'app-companies-list',
+    templateUrl: './companies-list.component.html',
+    standalone: false
 })
 export class CompaniesListComponent {
 

@@ -8,8 +8,9 @@ import {SimpleItem} from "devextreme/ui/form";
 import DevExpress from "devextreme";
 
 @Component({
-  selector: 'app-job',
-  templateUrl: './job.component.html'
+    selector: 'app-job',
+    templateUrl: './job.component.html',
+    standalone: false
 })
 export class JobComponent implements OnDestroy {
   private sub: Subscription;
