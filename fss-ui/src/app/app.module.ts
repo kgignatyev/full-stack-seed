@@ -46,13 +46,15 @@ import {AuthClientConfig, AuthConfig, AuthHttpInterceptor, AuthModule} from "@au
 import {AuthzService} from "./services/authz.service";
 import {firstValueFrom} from "rxjs";
 import { AlertsComponent } from './layout/alerts/alerts.component';
+import { AboutComponent } from './system/about/about.component';
 @NgModule({ declarations: [
         AppComponent,
         CompaniesListComponent,
         CompanyComponent,
         JobsListComponent,
         JobComponent,
-        AlertsComponent
+        AlertsComponent,
+        AboutComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         DxAutocompleteModule,
