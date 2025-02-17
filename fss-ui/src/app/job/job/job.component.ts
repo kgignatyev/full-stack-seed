@@ -1,11 +1,12 @@
-import {Component, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnDestroy, TemplateRef, ViewChild} from '@angular/core';
 import {ContextService} from "../../services/context.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthzService} from "../../services/authz.service";
 import {Subscription} from "rxjs";
 import {JobsServiceV1Service, V1Job} from "../../generated/api_client";
-import {SimpleItem} from "devextreme/ui/form";
+import {SimpleItem, SimpleItemTemplateData} from "devextreme/ui/form";
 import DevExpress from "devextreme";
+import {DxElement} from "devextreme/core/element";
 
 @Component({
     selector: 'app-job',
@@ -20,7 +21,7 @@ export class JobComponent implements OnDestroy {
 
   @ViewChild('jobForm', {static: false}) jobForm!: DevExpress.ui.dxForm ;
 
-  customizeJobFormItem(item: SimpleItem) {
+  customizeJobFormItem= (item: SimpleItem) => {
     if (item.dataField == 'title') {
       item.validationRules = [
         {type: 'required', message: 'Title is required'},
@@ -35,6 +36,11 @@ export class JobComponent implements OnDestroy {
 
     if(item.dataField == 'events') {
       item.visible = false;
+    }
+
+    if(item.dataField == 'sourceId') {
+
+      item.template = 'jobSourceTemplate'
     }
 
   }

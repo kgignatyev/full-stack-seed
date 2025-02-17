@@ -631,7 +631,7 @@ components:
         updatedAt:
           type: string
           format: date-time
-        source:
+        sourceId:
           type: string
         banned:
           $ref: '#/components/schemas/v1.YN'

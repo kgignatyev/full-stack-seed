@@ -3,10 +3,13 @@
     <dx-form [(formData)]="job" #jobForm
              [colCount]="2"
              [customizeItem]="customizeJobFormItem">
-
+      <div *dxTemplate="let data of 'jobSourceTemplate'">
+        <app-job-sources-drop-down [(jobSource)]="job.sourceId"></app-job-sources-drop-down>
+      </div>
     </dx-form>
   </div>
 </div>
+
 <br/>
 <div class="row">
   <div class="offset-md-4 col-md-1">

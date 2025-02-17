@@ -3,6 +3,9 @@
           <dx-form [(formData)]="company" #companyForm
                    [colCount]="1"
                    [customizeItem]="customizeCompanyFormItem">
+            <div *dxTemplate="let data of 'jobSourceTemplate'">
+              <app-job-sources-drop-down [(jobSource)]="company.sourceId"></app-job-sources-drop-down>
+            </div>
           </dx-form>
         </div>
 </div>

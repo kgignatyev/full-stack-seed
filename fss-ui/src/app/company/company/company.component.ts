@@ -8,7 +8,7 @@ import dxForm, {SimpleItem} from "devextreme/ui/form";
 function makeNewCompany():V1Company {
   return {banned: V1YN.N, createdAt: new Date().toISOString(),
     accountId: "my",
-    id: "", name: "", notes: "", source: ""};
+    id: "", name: "", notes: "", sourceId: ""};
 }
 
 @Component({
@@ -51,6 +51,10 @@ export class CompanyComponent implements OnDestroy{
         {type: 'stringLength', max: 100, message: 'Name should be less than 100 characters'},
         {type: 'stringLength', min: 5, message: 'Name should be at least 5 characters'}
       ]
+    }
+
+    if( item.dataField == 'sourceId' ) {
+      item.template = 'jobSourceTemplate'
     }
 
   }

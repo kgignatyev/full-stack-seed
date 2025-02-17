@@ -47,6 +47,7 @@ import {AuthzService} from "./services/authz.service";
 import {firstValueFrom} from "rxjs";
 import { AlertsComponent } from './layout/alerts/alerts.component';
 import { AboutComponent } from './system/about/about.component';
+import { JobSourcesDropDownComponent } from './components/job-sources-drop-down/job-sources-drop-down.component';
 @NgModule({ declarations: [
         AppComponent,
         CompaniesListComponent,
@@ -54,7 +55,8 @@ import { AboutComponent } from './system/about/about.component';
         JobsListComponent,
         JobComponent,
         AlertsComponent,
-        AboutComponent
+        AboutComponent,
+        JobSourcesDropDownComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         DxAutocompleteModule,

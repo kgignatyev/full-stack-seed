@@ -19,7 +19,7 @@ class Company {
     var accountId: String = ""
     var name = ""
     @Column(name = "source")
-    var source: String = ""
+    var sourceId: String = ""
 
     @Enumerated(EnumType.STRING)
     var banned: V1YN = V1YN.N
