@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 
 
 @Service("fssUserDetailsService")
-class FssUserDetailsService : UserDetailsService {
+class FssUserDetailsSvcImpl : UserDetailsService {
 
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 

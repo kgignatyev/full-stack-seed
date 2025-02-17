@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service
 
 @Service
 @Transactional
-class JobEventServiceImpl( val jobEventsRepo: JobEventsRepo,
-                           val jobRepo: JobsRepo,
-                           val securitySvc: SecuritySvc,
-                           val publisher: ApplicationEventPublisher): JobEventService, CrudRepository<JobEvent, String> by jobEventsRepo {
+class JobEventSvcImpl(val jobEventsRepo: JobEventsRepo,
+                      val jobRepo: JobsRepo,
+                      val securitySvc: SecuritySvc,
+                      val publisher: ApplicationEventPublisher): JobEventService, CrudRepository<JobEvent, String> by jobEventsRepo {
     override fun deleteByJobId(id: String) {
         jobEventsRepo.deleteByJobId(id)
     }

@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service
 
 @Service
 @Transactional
-class JobServiceImpl(val _jobsRepo: JobsRepo, val jobEventService: JobEventService, val accountsSvc: AccountsSvc,
-                     val securitySvc: SecuritySvc): JobService, CrudRepository<Job, String> by _jobsRepo{
+class JobSvcImpl(val _jobsRepo: JobsRepo, val jobEventService: JobEventService, val accountsSvc: AccountsSvc,
+                 val securitySvc: SecuritySvc): JobService, CrudRepository<Job, String> by _jobsRepo{
 
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 

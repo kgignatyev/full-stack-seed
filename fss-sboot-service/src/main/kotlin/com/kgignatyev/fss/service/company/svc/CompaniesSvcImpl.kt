@@ -13,8 +13,8 @@ import java.time.OffsetDateTime
 
 @Service
 @Transactional
-class CompaniesServiceImpl(val _companiesRepo: CompaniesRepo, val accountsSvc: AccountsSvc,
-                           val securitySvc: SecuritySvc
+class CompaniesSvcImpl(val _companiesRepo: CompaniesRepo, val accountsSvc: AccountsSvc,
+                       val securitySvc: SecuritySvc
 ): CompaniesService, CrudRepository<Company, String> by _companiesRepo{
 
     override fun search(searchExpr: String, sortExpr: String, offset: Long, limit: Int): SearchResult<Company> {
