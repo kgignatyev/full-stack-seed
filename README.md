@@ -20,7 +20,7 @@ and ideas for the project
 All the parts of this stack are productive and working well together, however, they are replaceable.
 If one hates Angular then React can be used (but use of commercial UI libraries is the must for productivity!).
 
-![overview](full-stack-dev/docs/overview.png)
+![overview](full-stack-dev/docs/fss-overview.png)
 
 ## Sample screens
 Jobs
