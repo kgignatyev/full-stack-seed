@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.2</version>
+        <version>3.5.0</version>
     </parent>
     <name>fss-acceptance-tests</name>
     <groupId>com.kgignatyev.fss</groupId>
@@ -17,11 +17,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cucumber.version>7.21.1</cucumber.version>
-        <jackson.version>2.18.2</jackson.version>
+        <cucumber.version>7.22.2</cucumber.version>
+        <jackson.version>2.19.0</jackson.version>
         <httpcomponents.version>5.3</httpcomponents.version>
-        <kotlin.version>2.1.10</kotlin.version>
-        <kotlin-coroutines.version>1.10.1</kotlin-coroutines.version>
+        <kotlin.version>2.1.21</kotlin.version>
+        <kotlin-coroutines.version>1.10.2</kotlin-coroutines.version>
         <moshi.version>1.15.2</moshi.version>
         <okhttp.version>4.12.0</okhttp.version>
         <spring-boot-run-jvm-extra></spring-boot-run-jvm-extra>
@@ -221,7 +221,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-reload4j</artifactId>
-            <version>2.0.16</version>
+            <version>2.0.17</version>
         </dependency>
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
@@ -232,7 +232,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.11.4</version>
+            <version>5.12.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -243,7 +243,7 @@
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility-kotlin</artifactId>
-            <version>4.2.2</version>
+            <version>4.3.0</version>
         </dependency>
         <dependency>
             <groupId>net.logstash.logback</groupId>
@@ -259,7 +259,7 @@
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>auth0</artifactId>
-            <version>2.17.0</version>
+            <version>2.20.0</version>
         </dependency>
         <dependency>
             <groupId>com.auth0</groupId>
@@ -276,7 +276,7 @@
         <dependency>
             <groupId>org.passay</groupId>
             <artifactId>passay</artifactId>
-            <version>1.6.4</version>
+            <version>1.6.6</version>
         </dependency>
 
         <dependency>
