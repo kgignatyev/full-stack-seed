@@ -169,7 +169,7 @@ class SecuritySvcImpl(
 
     override fun checkCurrentUserAuthorized(o: Securable, action: String) {
         if (!isCurrentUserAuthorized(o, action)) {
-            throw UnauthorizedException("User is not authorized to perform operation [$action] on object [${describeObjectForLog(o)}]")
+            throw UnauthorizedException("${getCallerInfo()} is not authorized to perform operation [$action] on object [${describeObjectForLog(o)}]")
         }
     }
 

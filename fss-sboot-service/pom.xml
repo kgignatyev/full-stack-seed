@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.0</version>
+        <version>3.5.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <name>fss Service</name>
@@ -18,11 +18,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jackson.version>2.19.0</jackson.version>
-        <flyway.version>11.8.2</flyway.version>
-        <kotlin.version>2.1.21</kotlin.version>
+        <jackson.version>2.19.1</jackson.version>
+        <flyway.version>11.9.2</flyway.version>
+        <kotlin.version>2.2.0</kotlin.version>
         <kotlin-coroutines.version>1.10.2</kotlin-coroutines.version>
-        <modulith.version>1.3.5</modulith.version>
+        <modulith.version>1.4.1</modulith.version>
         <revision>1.0.0-SNAPSHOT</revision>
 <!--        <spring-security.version>5.8.7</spring-security.version>-->
         <spring-boot-run-jvm-extra></spring-boot-run-jvm-extra>
@@ -221,7 +221,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.12.2</version>
+            <version>5.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -232,7 +232,7 @@
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
-            <version>8.0</version>
+            <version>8.1</version>
 <!--            <scope>runtime</scope>-->
         </dependency>
 <!--        <dependency>-->
@@ -254,7 +254,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.5</version>
+            <version>42.7.7</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
         <dependency>
@@ -281,7 +281,7 @@
         <dependency>
             <groupId>org.casbin</groupId>
             <artifactId>jcasbin</artifactId>
-            <version>1.81.0</version>
+            <version>1.82.0</version>
         </dependency>
         <!--       upgrading transitive dependency from casbin due to its vulnerability -->
         <dependency>

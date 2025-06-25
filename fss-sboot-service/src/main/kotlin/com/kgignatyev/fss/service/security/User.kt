@@ -38,4 +38,8 @@ class User:Securable {
     override fun ownerId(): String {
         return "-"
     }
+
+    override fun toString(): String {
+        return "User(id='" + id + "', jwtSub='" + jwtSub + "', name='" + name + "', email='" + email + "', createdAt=" + createdAt + ", updatedAt=" + updatedAt + ")"
+    }
 }

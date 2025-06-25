@@ -17,6 +17,10 @@ class CallerInfo {
 
         val anonymousCaller = CallerInfo()
     }
+
+    override fun toString(): String {
+        return "CallerInfo(currentUser=$currentUser, realUser=$realUser)"
+    }
 }
 
 

@@ -8,7 +8,7 @@ in order to target a different server, set the environment variable `SPRING_PROF
 export SPRING_PROFILE=local
 ```
 
-by default it runs management tests
+by default, it runs management tests
 
 ```shell
 ./run-tests.sh 
