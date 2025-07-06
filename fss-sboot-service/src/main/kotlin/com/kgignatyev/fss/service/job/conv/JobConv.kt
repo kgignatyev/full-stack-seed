@@ -15,14 +15,16 @@ class ApiToJob : Converter<V1Job, Job> {
         j.title = s.title
         j.status = s.status
         j.notes = s.notes
-        if( s.companyName != null )
-            j.companyName = s.companyName
-
-        if( s.companyResponse != null )
-          j.companyResponse = s.companyResponse
+        val companyName = s.companyName
+        if( companyName != null )
+            j.companyName = companyName
+        val companyResponse = s.companyResponse
+        if( companyResponse != null )
+          j.companyResponse = companyResponse
         j.createdAt = s.createdAt
-        if( s.updatedAt != null) {
-            j.updatedAt = s.updatedAt
+        val updatedAt = s.updatedAt
+        if( updatedAt != null) {
+            j.updatedAt = updatedAt
         }
         return j
     }

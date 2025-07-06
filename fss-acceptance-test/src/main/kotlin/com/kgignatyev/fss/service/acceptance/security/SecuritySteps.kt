@@ -31,8 +31,8 @@ class SecuritySteps {
     fun user_cant_retrieve_policies_of_other_users() {
 
         val users = securityHelper.runAsUser("admin"){
-            val r = V1SearchRequest( V1Pagination(1, 10),
-                "email like '%kgignaty%'", "email asc")
+            val r = V1SearchRequest("email like '%kgignaty%'", "email asc",
+                V1Pagination(1, 10))
             securityApi.searchUsers(r).items
         }
 

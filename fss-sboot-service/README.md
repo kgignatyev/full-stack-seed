@@ -1,3 +1,16 @@
+Before you start
+---
+
+Run environment check script
+```shell
+./utils/environment-check.sh
+```
+Once you have all the tools installed please run 
+```shell
+./utils/bootstrap.sh
+```
+to setup initial configuration, then verify that DB connection and credentials are correct
+
 run in development mode
 ---
 ```shell    
@@ -8,10 +21,13 @@ Spring development utilities are enabled
 and therefore the application will reload on changes. To trigger a reload simply 
 modify source code and run compilation.
 
+Note that *mvn* command can be used but *mvnd* will be faster because it maintains a daemon process.
+https://github.com/apache/maven-mvnd?tab=readme-ov-file#install-using-homebrew
+
 ```shell
  mvnd package -DskipTests
 ```
-Note that *mvn* command can be used but *mvnd* will be faster because it maintains a daemon process.
+
 
 
 Run tests
@@ -30,12 +46,12 @@ Architecture enforcement
 
 Verify that code structure conforms to the chosen standards (see https://www.archunit.org/ for details): 
 ```shell
-  mvn  test -Dtest=ArchUnitTest
+  mvnd  test -Dtest=ArchUnitTest
 ```
 
 Verify "modulith" mudularity and produce documentation
 ```shell
-   mvn  test -Dtest=ModularityTest
+   mvnd  test -Dtest=ModularityTest
 ```
 Check for errors and look at the produced documentation in the target/spring-modulith-docs
 directory (plantUML and adoc IntellJ plugins are very helpful here ).

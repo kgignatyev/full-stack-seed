@@ -1,0 +1,19 @@
+casbin.enable-log=false
+spring.datasource.url= jdbc:postgresql://localhost:5432/fss
+spring.datasource.username=%USERNAME%
+spring.datasource.password=
+logging.level.org=DEBUG
+logging.level.com.kgignatyev=INFO
+logging.level.com.zaxxer=INFO
+logging.level.org.springframework=INFO
+#logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate=INFO
+logging.level.org.hibernate.orm.jdbc.bind=INFO
+
+management.endpoints.web.exposure.include=*
+management.metrics.export.prometheus.enabled=true
+management.metrics.export.prometheus.host=localhost
+
+hz.cluster-name=fss-dev
+
+

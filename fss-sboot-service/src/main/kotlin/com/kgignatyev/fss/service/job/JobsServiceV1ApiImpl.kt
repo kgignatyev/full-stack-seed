@@ -6,6 +6,8 @@ import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1Job
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1JobEvent
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1JobListResult
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1SearchRequest
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.core.convert.ConversionService
 import org.springframework.http.ResponseEntity
@@ -23,11 +25,14 @@ class JobsServiceV1ApiImpl(val jobsSvc: JobService,
                            val jobEventService: JobEventService,
                            @Qualifier("mvcConversionService") val conv:ConversionService):JobsServiceV1Api {
 
+    val logger: Logger = LoggerFactory.getLogger(this.javaClass)
+
     override fun getAllJobs(accountId:String): ResponseEntity<List<V1Job>> {
         return ok( jobsSvc.findAll().map { conv.convert(it,V1Job::class.java)!! })
     }
 
     override fun searchJobs(v1SearchRequest: V1SearchRequest): ResponseEntity<V1JobListResult> {
+//        logger.info("searchJobs: $v1SearchRequest")
         val r: SearchResult<Job> = jobsSvc.search(v1SearchRequest.searchExpression,v1SearchRequest.sortExpression,v1SearchRequest.pagination.offset, v1SearchRequest.pagination.limit)
         val res = V1JobListResult()
         res.items = r.items.map { conv.convert(it, V1Job::class.java)!! }

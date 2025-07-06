@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 SPRING_PROFILE=${SPRING_PROFILE:-local}
 
 test_info="local execution at $(date)"

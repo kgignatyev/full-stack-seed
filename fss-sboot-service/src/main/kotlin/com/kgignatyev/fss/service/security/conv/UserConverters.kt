@@ -25,9 +25,9 @@ class API2User:Converter<V1User, User> {
     override fun convert(source: V1User): User {
        val u = User()
         u.id = source.id
-        u.email = source.email
+        u.email = source.email?: ""
         u.name = source.name
-        u.jwtSub = source.jwtSub
+        u.jwtSub = source.jwtSub?: ""
         u.createdAt = source.createdAt
         u.updatedAt = source.updatedAt
         return u

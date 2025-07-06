@@ -27,7 +27,7 @@ class JobSteps {
 
     @Given("current user can find {string}")
     fun current_user_can_find(jobTitle: String) {
-        val r = V1SearchRequest( V1Pagination(1, 10), "title = '$jobTitle'", "title asc")
+        val r = V1SearchRequest(  "title = '$jobTitle'", "title asc",V1Pagination(1, 10))
         val jobs = jobApi.searchJobs(r).items
         jobs.size shouldBeExactly 1
         TestsContext.currentJob = jobs[0]

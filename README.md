@@ -1,11 +1,21 @@
 Full Stack Seed (FSS)
 ---
 
-This is a collection of projects to bootstrap a startup by providing complete and productive
+This is a collection of projects to bootstrap a startup ( or a project ) by providing complete and productive
 development stack that uses API first ideology
+
+![overview](full-stack-dev/docs/Full-Startup-Starter.png)
 
 This Medium article:[ Full Startup Starter technology stack](https://medium.com/@kgignatyev/full-startup-starter-on-jvm-stack-c83a4f0a28ad) explains the reasons
 and ideas for the project
+
+Before you start
+---
+
+Run environment check script
+```shell
+./fss-sboot-service/utils/environment-check.sh
+```
 
 ## Projects
 - [fss-api](fss-api/README.md) - API definitions
@@ -16,6 +26,8 @@ and ideas for the project
 
 
 ## Overview
+
+
 
 All the parts of this stack are productive and working well together, however, they are replaceable.
 If one hates Angular then React can be used (but use of commercial UI libraries is the must for productivity!).

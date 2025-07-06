@@ -150,6 +150,6 @@ class FssAPIAccess(val cfg: CfgValues) {
 object ApiHelpers {
     fun createSearchRequest( filter: String, sort: String, offset:Long = 0, limit:Int= 10): V1SearchRequest {
         val pagination = V1Pagination(offset, limit)
-        return V1SearchRequest(pagination, filter, sort)
+        return V1SearchRequest( filter, sort, pagination)
     }
 }

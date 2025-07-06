@@ -52,7 +52,7 @@ class ScalabilitySteps {
     ) {
         val myAcnt = acntApi.getAccountById("my")
         val effCriteria = "accountId = '${myAcnt.id}' and $criteria"
-        val r = V1SearchRequest(V1Pagination(((pageN-1)*pageSize).toLong(), pageSize), effCriteria, "title asc,id asc")
+        val r = V1SearchRequest( effCriteria, "title asc,id asc",V1Pagination(((pageN-1)*pageSize).toLong(), pageSize))
         var nFound = 0
         val elapsed = measureTime {
             val res = jobApi.searchJobs(r)
