@@ -53,7 +53,14 @@ spring:
 
 
 
-
+  temporal:
+    connection:
+      #uncomment when temporal server is up and running, temporal beans are conditional on
+#      the property
+#      target: 127.0.0.1:7233
+      target.namespace: default
+    workersAutoDiscovery:
+      packages: com.kgignatyev.fss.service
 
 
 management:

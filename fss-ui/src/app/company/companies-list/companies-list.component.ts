@@ -13,7 +13,9 @@ export class CompaniesListComponent {
   companies: Array<V1Company> = [];
   pageSize: number = 15;
 
-  constructor(private companiesSvc: CompaniesServiceV1Service,private cxtSvc:ContextService, private router: Router) {
+  constructor(private companiesSvc: CompaniesServiceV1Service,
+              private cxtSvc:ContextService,
+              private router: Router) {
     this.refresh();
   }
 

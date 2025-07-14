@@ -5,7 +5,7 @@ Run environment check script
 ```shell
 ./utils/environment-check.sh
 ```
-Once you have all the tools installed please run 
+Once you have all the tools installed, please run 
 ```shell
 ./utils/bootstrap.sh
 ```

@@ -1,0 +1,26 @@
+<h1>Workflows</h1>
+<div class="container-fluid">
+  <div class="row mb-3">
+    <div class="col">
+      <button class="btn btn-outline-primary" (click)="refresh()">
+        <i class="fas fa-sync-alt"></i> Refresh
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <dx-data-grid
+        [dataSource]="workflows"
+        [showBorders]="true"
+        [columnAutoWidth]="true">
+        <dxi-column dataField="id" caption="ID"></dxi-column>
+        <dxi-column dataField="name" caption="Name"></dxi-column>
+        <dxi-column dataField="status" caption="Status"></dxi-column>
+        <dxi-column dataField="createdAt" caption="Created At" dataType="datetime"></dxi-column>
+        <dxi-column dataField="updatedAt" caption="Updated At" dataType="datetime"></dxi-column>
+      </dx-data-grid>
+    </div>
+  </div>
+</div>
+
+

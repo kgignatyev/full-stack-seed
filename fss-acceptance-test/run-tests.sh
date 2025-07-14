@@ -4,8 +4,6 @@ set -e
 
 SPRING_PROFILE=${SPRING_PROFILE:-local}
 
-test_info="local execution at $(date)"
-
 mvnCmd=mvn
 
 if  [[ "debug" == "$1" ]]; then

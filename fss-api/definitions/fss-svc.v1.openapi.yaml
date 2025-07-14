@@ -17,6 +17,7 @@ tags:
   - name: CompaniesServiceV1
   - name: JobsServiceV1
   - name: SecurityServiceV1
+  - name: AutomationServiceV1
 security:
   - bearerAuth: [ ]
 
@@ -128,6 +129,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/v1.Status'
+
+  /v1/automation/workflows:
+    get:
+      tags:
+        - AutomationServiceV1
+      summary: List recent workflows
+      operationId: listWorkflows
+      responses:
+        200:
+          description: workflows and their statuses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/v1.WorkflowInfo"
+
   /v1/jobs/action/search:
     post:
       tags:
@@ -774,5 +792,10 @@ components:
         - status
         - notes
 
-
+    v1.WorkflowInfo:
+      type: object
+      properties:
+        id: { type: string }
+        wfType: { type: string }
+        status: { type: string }
 

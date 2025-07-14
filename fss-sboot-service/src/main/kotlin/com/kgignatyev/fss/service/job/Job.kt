@@ -3,6 +3,7 @@ package com.kgignatyev.fss.service.job
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1CompanyResponse
 import com.kgignatyev.fss_svc.api.fsssvc.v1.model.V1JobStatus
 import jakarta.persistence.*
+import jakarta.validation.constraints.NotBlank
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.OffsetDateTime
@@ -16,6 +17,7 @@ class Job {
     @Column(name = "jobs_id")
     var id:String = ""
     @Column(name = "acnt_id")
+    @NotBlank(message = "AccountId is missing.")
     var accountId:String = ""
     var title  = ""
     @Column(name = "description")

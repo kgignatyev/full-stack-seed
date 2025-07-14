@@ -1,0 +1,26 @@
+@startuml
+[*] --> TrialPeriod
+
+state TrialPeriod {
+    [*] --> ActiveTrial
+    ActiveTrial --> NearingEnd : 7 days before end
+    NearingEnd --> NearingEnd: send reminder
+    NearingEnd --> Ended : trial period ends
+}
+
+TrialPeriod --> AccountActive: payment received
+TrialPeriod --> [*]  : account deactivated
+
+state AccountActive {
+    [*] --> WaitingForPaymentPeriodEnd
+
+    WaitingForPaymentPeriodEnd --> WaitingForPaymentPeriodEnd: charge with payment on file
+    WaitingForPaymentPeriodEnd --> RequestPayment: no payment details on file or expired or unsuccessful
+    RequestPayment --> WaitingForPaymentPeriodEnd: payment successful
+    RequestPayment --> RequestPayment: retry N times
+    RequestPayment --> PaymentNotReceived: all retries are unsuccessful
+    PaymentNotReceived --> [*]
+}
+
+AccountActive--> [*]  : account deactivated
+@enduml

@@ -19,13 +19,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jackson.version>2.19.1</jackson.version>
-        <flyway.version>11.10.1</flyway.version>
+        <flyway.version>11.10.2</flyway.version>
         <kotlin.version>2.2.0</kotlin.version>
         <kotlin-coroutines.version>1.10.2</kotlin-coroutines.version>
         <modulith.version>1.4.1</modulith.version>
         <revision>1.0.0-SNAPSHOT</revision>
 <!--        <spring-security.version>5.8.7</spring-security.version>-->
         <spring-boot-run-jvm-extra></spring-boot-run-jvm-extra>
+        <temporal.version>1.30.1</temporal.version>
         <java.version>21</java.version>
     </properties>
 
@@ -107,6 +108,11 @@
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.temporal</groupId>
+            <artifactId>temporal-spring-boot-starter</artifactId>
+            <version>${temporal.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>${flyway.version}</version>
@@ -153,11 +159,11 @@
             <artifactId>kotlinx-coroutines-reactor</artifactId>
             <version>${kotlin-coroutines.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-            <version>4.5.0-M1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.commons</groupId>-->
+<!--            <artifactId>commons-collections4</artifactId>-->
+<!--            <version>4.5.0</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
         <dependency>
             <groupId>commons-codec</groupId>
@@ -327,7 +333,9 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!--                    -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000-->
+<!--                    -Xshare:auto-->
                     <jvmArguments>
+
                         ${spring-boot-run-jvm-extra}
                         -noverify
                         --add-modules java.se

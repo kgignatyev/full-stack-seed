@@ -48,6 +48,7 @@ import {firstValueFrom} from "rxjs";
 import { AlertsComponent } from './layout/alerts/alerts.component';
 import { AboutComponent } from './system/about/about.component';
 import { JobSourcesDropDownComponent } from './components/job-sources-drop-down/job-sources-drop-down.component';
+import { Workflows } from './automation/workflows/workflows';
 @NgModule({ declarations: [
         AppComponent,
         CompaniesListComponent,
@@ -56,7 +57,8 @@ import { JobSourcesDropDownComponent } from './components/job-sources-drop-down/
         JobComponent,
         AlertsComponent,
         AboutComponent,
-        JobSourcesDropDownComponent
+        JobSourcesDropDownComponent,
+        Workflows
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         DxAutocompleteModule,
