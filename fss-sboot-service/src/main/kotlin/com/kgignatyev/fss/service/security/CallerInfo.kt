@@ -14,7 +14,11 @@ class CallerInfo {
             name = "anonymous"
             email = "anonymous@some.com"
         }
-
+        val adminUser = User().apply {
+            id = "admin"
+            name = "admin"
+            email = "admin@some.com"
+        }
         val anonymousCaller = CallerInfo()
     }
 

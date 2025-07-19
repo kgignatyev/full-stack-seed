@@ -49,6 +49,7 @@ import { AlertsComponent } from './layout/alerts/alerts.component';
 import { AboutComponent } from './system/about/about.component';
 import { JobSourcesDropDownComponent } from './components/job-sources-drop-down/job-sources-drop-down.component';
 import { Workflows } from './automation/workflows/workflows';
+import { SystemInfo } from './system/system-info/system-info';
 @NgModule({ declarations: [
         AppComponent,
         CompaniesListComponent,
@@ -58,7 +59,8 @@ import { Workflows } from './automation/workflows/workflows';
         AlertsComponent,
         AboutComponent,
         JobSourcesDropDownComponent,
-        Workflows
+        Workflows,
+        SystemInfo
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         DxAutocompleteModule,

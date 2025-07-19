@@ -65,7 +65,9 @@ docker run --rm  --user=$USER \
   $IMPORT_MAPPINGS \
   --additional-properties=modelPackage=${JAVA_MODEL_PACKAGE}.${API_VERSION}.model  \
   --additional-properties=apiPackage=${JAVA_MODEL_PACKAGE} \
+  --additional-properties=library=spring-boot \
   --additional-properties=useTags=true \
+  --additional-properties=useSpringBoot3=true \
   --additional-properties=dateLibrary=java8 \
   --additional-properties=interfaceOnly=true \
   --additional-properties=skipDefaultInterface=false \
@@ -74,7 +76,6 @@ docker run --rm  --user=$USER \
   --additional-properties=artifactVersion=${API_RELEASE} \
   --additional-properties=artifactId=${JAR_NAME} \
   --additional-properties=groupId=${GROUP_ID} \
-  --additional-properties=parentVersion=3.2.3 \
   --global-property=supportingFiles$DEBUG_MODELS \
   --global-property=apis,models,modelDocs=false\
   -t /local/generators/${GENERATOR}/templates \

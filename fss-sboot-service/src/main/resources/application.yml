@@ -5,7 +5,7 @@ logging:
 #      okta: TRACE
     org:
       springframework:
-        security: TRACE
+        security: INFO
 
 #  pattern:
 #    correlation: [{traceId:-},{spanId:-}]
@@ -17,8 +17,6 @@ spring:
 
   jmx:
     enabled: false
-
-
 
   datasource:
 
@@ -57,7 +55,7 @@ spring:
     connection:
       #uncomment when temporal server is up and running, temporal beans are conditional on
 #      the property
-#      target: 127.0.0.1:7233
+      target: 127.0.0.1:7233
       target.namespace: default
     workersAutoDiscovery:
       packages: com.kgignatyev.fss.service
@@ -69,7 +67,7 @@ management:
       show-details: always
   endpoints:
     web:
-      base-path: /api/public/mgmt
+      base-path: /actuator
     health:
       sensitive: false
   simple:

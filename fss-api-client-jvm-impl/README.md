@@ -7,11 +7,11 @@ Prerequisites
 Create 'definitions' symlink to the definitions from ema-api project, for example
 if it is a sibling project 
 
-    ln -s ../badminton-api .
+>    ln -s ../fss-api .
 
-On OS X please install coreutils
+On OSX please install coreutils
 
-    brew install coreutils
+>    brew install coreutils
 
 
 

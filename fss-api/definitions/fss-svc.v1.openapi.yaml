@@ -145,6 +145,31 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/v1.WorkflowInfo"
+  /v1/automation/workflows/action/start:
+    post:
+      tags:
+        - AutomationServiceV1
+      summary: Start workflow
+      operationId: startWorkflow
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.StartWorkflowRequest'
+      responses:
+        '200' :
+          description: 'returns OK is workflow was scheduled successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Status'
+        '400' :
+          description: 'error if workflow is already running or unknown'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1.Status'
 
   /v1/jobs/action/search:
     post:
@@ -798,4 +823,10 @@ components:
         id: { type: string }
         wfType: { type: string }
         status: { type: string }
+      required: [ id, wfType, status ]
 
+    v1.StartWorkflowRequest:
+      type: object
+      properties:
+        wfType: {type: string}
+      required: [ wfType]

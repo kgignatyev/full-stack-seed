@@ -18,8 +18,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jackson.version>2.19.1</jackson.version>
-        <flyway.version>11.10.2</flyway.version>
+        <jackson.version>2.19.2</jackson.version>
+        <flyway.version>11.10.3</flyway.version>
         <kotlin.version>2.2.0</kotlin.version>
         <kotlin-coroutines.version>1.10.2</kotlin-coroutines.version>
         <modulith.version>1.4.1</modulith.version>
@@ -217,7 +217,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-reload4j</artifactId>
-            <version>2.1.0-alpha0</version>
+            <version>2.1.0-alpha1</version>
         </dependency>
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
@@ -227,13 +227,13 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.13.3</version>
+            <version>6.0.0-M1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.19.0</version>
+            <version>2.20.0</version>
         </dependency>
         <dependency>
             <groupId>net.logstash.logback</groupId>

@@ -1,6 +1,7 @@
 @startuml
-[*] --> ScrapLinkedIn
-ScrapLinkedIn --> DeduplicateLeads
+[*] --> ScrapSource
+ScrapSource --> DeduplicateLeads
 DeduplicateLeads --> MatchAgainstSeekersPreferencesAndProfiles
-MatchAgainstSeekersPreferencesAndProfiles --> [*]
+MatchAgainstSeekersPreferencesAndProfiles --> Notify
+Notify --> [*]
 @enduml

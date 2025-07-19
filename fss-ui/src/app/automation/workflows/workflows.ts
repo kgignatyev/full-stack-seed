@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AutomationServiceV1Service, V1WorkflowInfo} from "../../generated/api_client";
+import {AutomationServiceV1Service, V1StartWorkflowRequest, V1WorkflowInfo} from "../../generated/api_client";
 
 @Component({
   selector: 'app-workflows',
@@ -22,5 +22,12 @@ export class Workflows implements OnInit {
         this.workflows = data;
       }
     );
+  }
+
+  startLeadsAcquisition() {
+    let request:V1StartWorkflowRequest = {
+      wfType: 'LeadsAcquisitionWorkflow'
+    };
+    this.automationService.startWorkflow( request).subscribe( d => this.refresh())
   }
 }

@@ -1,7 +1,29 @@
 Before you start
 ---
 
-Run environment check script
+Have PostgreSQL up and running on port 5432
+>brew install postgresql
+
+Create 'fss' database , for example
+>  psql -d postgres  -c 'create database fss'
+
+Or use your favorite DB management tool like https://dbeaver.io/ to do the same
+Then create config directory and application.properties file in it (do not add it to git!)
+and the following properties in it
+```text
+spring.datasource.url= jdbc:postgresql://localhost:5432/fss
+spring.datasource.username=<real DB user name>
+spring.datasource.password=<password>
+```
+
+Have local temporal.io server up and running
+Install temporal.io local server
+> brew install temporal
+
+Run instance
+> temporal server start-dev
+
+Run the environment check script
 ```shell
 ./utils/environment-check.sh
 ```
