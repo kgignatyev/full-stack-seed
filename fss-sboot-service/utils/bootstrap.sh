@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if test -f config/application.properties; then
-  echo "File config/application.properties skipping creation."
+  echo "File config/application.properties exists, skipping creation."
 
 else
   echo "File config/application.properties not found, creating it."

@@ -12,6 +12,8 @@ class WorkflowInfoToAPI: Converter<WorkflowInfo, V1WorkflowInfo> {
            .wfType( s.wfType )
            .status( s.status )
            .id( s.id )
-
+           .runId(s.runId )
+           .timeStarted( s.startTime)
+           .timeEnded (s.endTime )
     }
 }

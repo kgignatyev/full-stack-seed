@@ -19,10 +19,16 @@
         [showBorders]="true"
         [columnAutoWidth]="true">
         <dxi-column dataField="id" caption="ID"></dxi-column>
-        <dxi-column dataField="name" caption="Name"></dxi-column>
+<!--        <dxi-column dataField="runId" caption="Run ID" ></dxi-column>-->
+        <dxi-column dataField="runId" caption="Run ID" cellTemplate="runIdCD"></dxi-column>
+        <dxi-column dataField="wfType" caption="Type"></dxi-column>
         <dxi-column dataField="status" caption="Status"></dxi-column>
         <dxi-column dataField="createdAt" caption="Created At" dataType="datetime"></dxi-column>
         <dxi-column dataField="updatedAt" caption="Updated At" dataType="datetime"></dxi-column>
+
+        <div *dxTemplate="let cell of 'runIdCD'">
+          <a target="_blank" [href]="'http://localhost:8233/namespaces/default/workflows/' +cell.data.id+ '/'+cell.data.runId +'/history'" >{{cell.data.runId}}</a>
+        </div>
       </dx-data-grid>
     </div>
   </div>

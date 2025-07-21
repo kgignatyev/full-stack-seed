@@ -823,6 +823,9 @@ components:
         id: { type: string }
         wfType: { type: string }
         status: { type: string }
+        runId: { type: string }
+        timeStarted: { type: string, format: date-time}
+        timeEnded: { type: string, format: date-time}
       required: [ id, wfType, status ]
 
     v1.StartWorkflowRequest:
