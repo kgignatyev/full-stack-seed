@@ -62,12 +62,16 @@ spring:
 
 
 management:
+
+
   endpoint:
     health:
       show-details: always
   endpoints:
     web:
       base-path: /actuator
+      exposure:
+        include: 'health'
     health:
       sensitive: false
   simple:

@@ -35,6 +35,7 @@ class SecurityConfig {
         return http
             .authorizeHttpRequests { authorize ->
                 authorize
+                    .requestMatchers("/actuator/**").permitAll()
                     .requestMatchers("/api/public/**").permitAll()
                     .requestMatchers("/api/v1/**").authenticated()
             }
