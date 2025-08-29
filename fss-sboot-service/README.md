@@ -8,7 +8,7 @@ Create 'fss' database and in it schema 'jobs', for example
 
 ```shell
 psql -d postgres  -c 'CREATE DATABASE fss'
-psql -d fss -d 'CREATE SCHEMA jobs'
+psql -d fss -c 'CREATE SCHEMA jobs'
 ```
 
 Or use your favorite DB management tool like https://dbeaver.io/ to do the same
