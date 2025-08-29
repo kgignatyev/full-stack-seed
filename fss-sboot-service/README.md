@@ -7,7 +7,7 @@ Have PostgreSQL up and running on port 5432
 Create 'fss' database and in it schema 'jobs', for example
 
 ```shell
-psql -d postgres  -c 'CREATE DATABASE fss'
+psql -d postgres -c 'CREATE DATABASE fss'
 psql -d fss -c 'CREATE SCHEMA jobs'
 ```
 
@@ -39,7 +39,7 @@ to setup initial configuration, then verify that DB connection and credentials a
 
 run in development mode
 ---
-```shell    
+```shell
 mvn spring-boot:run 
 ```
 The application will be running on http://localhost:8080
@@ -72,12 +72,12 @@ Architecture enforcement
 
 Verify that code structure conforms to the chosen standards (see https://www.archunit.org/ for details): 
 ```shell
-  mvnd  test -Dtest=ArchUnitTest
+ mvnd test -Dtest=ArchUnitTest
 ```
 
 Verify "modulith" mudularity and produce documentation
 ```shell
-   mvnd  test -Dtest=ModularityTest
+ mvnd test -Dtest=ModularityTest
 ```
 Check for errors and look at the produced documentation in the target/spring-modulith-docs
 directory (plantUML and adoc IntellJ plugins are very helpful here ).
