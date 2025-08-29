@@ -25,13 +25,22 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-echo -n "Checking yq: "
+echo  "Checking yq: "
 if command_exists yq; then
   echo -e "\t${GREEN}Found $(yq --version)"
 else
   echo -e "\t${RED}Not found${NC}"
   echo -e "\t${YELLOW}Installation suggestion:${NC}"
   echo "  Install with homebrew: brew install yq"
+fi
+
+echo  "Checking docker: "
+if command_exists docker; then
+  echo -e "\t${GREEN}Found $(docker --version)"
+else
+  echo -e "\t${RED}Not found${NC}"
+  echo -e "\t${YELLOW}Installation suggestion:${NC}"
+  echo "  visit https://www.docker.com/ and follow instructions"
 fi
 
 echo "Checking Maven: "

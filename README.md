@@ -9,13 +9,8 @@ development stack that uses API first ideology
 This Medium article:[ Full Startup Starter technology stack](https://medium.com/@kgignatyev/full-startup-starter-on-jvm-stack-c83a4f0a28ad) explains the reasons
 and ideas for the project
 
-Before you start
----
 
-Run environment check script
-```shell
-./fss-sboot-service/utils/environment-check.sh
-```
+[GETTING STARTED](GETTING_STARTED.md)
 
 ## Projects
 - [fss-api](fss-api/README.md) - API definitions

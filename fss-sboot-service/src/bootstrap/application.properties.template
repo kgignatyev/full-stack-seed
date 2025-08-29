@@ -16,4 +16,10 @@ management.metrics.export.prometheus.host=localhost
 
 hz.cluster-name=fss-dev
 
+# Replace with the domain of your Auth0 tenant.
+okta.oauth2.issuer: https://kgignatyev.auth0.com/
+# Replace with the API Identifier for your Auth0 API.
+okta.oauth2.audience: http://local-dev
+
+
 
