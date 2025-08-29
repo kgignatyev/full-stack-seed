@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.3</version>
+        <version>3.5.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <name>fss Service</name>
@@ -18,15 +18,16 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jackson.version>2.19.2</jackson.version>
-        <flyway.version>11.10.3</flyway.version>
-        <kotlin.version>2.2.0</kotlin.version>
+        <jackson.version>2.20.0</jackson.version>
+        <jackson.annotation.version>2.20</jackson.annotation.version>
+        <flyway.version>11.11.2</flyway.version>
+        <kotlin.version>2.2.10</kotlin.version>
         <kotlin-coroutines.version>1.10.2</kotlin-coroutines.version>
-        <modulith.version>1.4.1</modulith.version>
+        <modulith.version>1.4.3</modulith.version>
         <revision>1.0.0-SNAPSHOT</revision>
 <!--        <spring-security.version>5.8.7</spring-security.version>-->
         <spring-boot-run-jvm-extra></spring-boot-run-jvm-extra>
-        <temporal.version>1.30.1</temporal.version>
+        <temporal.version>1.31.0</temporal.version>
         <java.version>21</java.version>
     </properties>
 
@@ -206,7 +207,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
+            <version>${jackson.annotation.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -287,7 +288,7 @@
         <dependency>
             <groupId>org.casbin</groupId>
             <artifactId>jcasbin</artifactId>
-            <version>1.82.0</version>
+            <version>1.84.0</version>
         </dependency>
         <!--       upgrading transitive dependency from casbin due to its vulnerability -->
         <dependency>
@@ -312,7 +313,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.18.0</version>
+            <version>5.19.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
