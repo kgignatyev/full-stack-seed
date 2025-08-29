@@ -27,29 +27,38 @@ command_exists() {
 
 echo -n "Checking yq: "
 if command_exists yq; then
-  echo -e "${GREEN}Found $(yq --version)"
+  echo -e "\t${GREEN}Found $(yq --version)"
 else
-  echo -e "${RED}Not found${NC}"
-  echo -e "${YELLOW}Installation suggestion:${NC}"
+  echo -e "\t${RED}Not found${NC}"
+  echo -e "\t${YELLOW}Installation suggestion:${NC}"
   echo "  Install with homebrew: brew install yq"
 fi
 
 echo "Checking Maven: "
 if command_exists mvn; then
-  echo -e "${GREEN}Found $(mvn --version | head -n 1 | awk '{print " (" $3 ")"}')"
+  echo -e "\t${GREEN}Found $(mvn --version | head -n 1 | awk '{print " (" $3 ")"}')"
 else
-  echo -e "${RED}Not found${NC}"
-  echo -e "${YELLOW}Installation suggestion:${NC}"
+  echo -e "\t${RED}Not found${NC}"
+  echo -e "\t${YELLOW}Installation suggestion:${NC}"
   echo -e "  Install with SDKMAN: sdk install maven"
 fi
 
 echo "Checking Maven Daemon (mvnd): "
 if command_exists mvnd; then
-  echo -e "${GREEN}Found $(mvnd --version | head -n 1 )"
+  echo -e "\t${GREEN}Found $(mvnd --version | head -n 1 )"
 else
-  echo -e "${RED}Not found ${NC}"
-  echo -e "${YELLOW}Installation suggestion:${NC}"
+  echo -e "\t${RED}Not found ${NC}"
+  echo -e "\t${YELLOW}Installation suggestion:${NC}"
   echo "  Install with SDKMAN: sdk install mvnd"
+fi
+
+echo "Checking Temporal workflow management : "
+if command_exists temporal; then
+  echo -e "\t${GREEN}Found $(temporal --version | head -n 1 )"
+else
+  echo -e "\t${RED}Not found ${NC}"
+  echo -e "\t${YELLOW}Installation suggestion:${NC}"
+  echo "  Install with homebrew: brew install temporal"
 fi
 
 # Check for PostgreSQL
@@ -69,10 +78,15 @@ fi
   echo -n "Checking psql tool: "
   if command_exists psql; then
     echo -e "${GREEN}Found${NC}"
-    echo "Attempting to connect to 'fss' database..."
+    echo "Attempting to connect to 'fss' database... not implemented yet"
   else
     echo -e "${YELLOW}Not found${NC}"
     echo "While psql is not strictly required for the project, it is useful for database management."
     echo "Please use your favorite DB management tool to create 'fss' database."
     echo "DBeaver is a good choice for a GUI tool for example."
   fi
+
+
+echo "Recommended tools:"
+echo "  DBeaver is a good DB GUI tool https://dbeaver.io/"
+echo "  SDKMAN for managing java tools and SDK-s https://sdkman.io/"
