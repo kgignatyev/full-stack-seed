@@ -17,6 +17,7 @@ psql -d fss -c 'CREATE SCHEMA jobs'
 Or use your favorite DB management tool like https://dbeaver.io/ to do the same
 Then create **config** directory and application.properties file in it (do not add it to git!)
 and the following properties in it
+
 ```text
 spring.datasource.url= jdbc:postgresql://localhost:5432/fss
 spring.datasource.username=<real DB user name>
@@ -36,10 +37,12 @@ temporal server start-dev
 ```
 
 Run the environment check script
+
 ```shell
 ./utils/environment-check.sh
 ```
 Once you have all the tools installed, please run 
+
 ```shell
 ./utils/bootstrap.sh
 ```
@@ -47,6 +50,7 @@ to setup initial configuration, then verify that DB connection and credentials a
 
 run in development mode
 ---
+
 ```shell
 mvn spring-boot:run 
 ```
@@ -66,11 +70,13 @@ https://github.com/apache/maven-mvnd?tab=readme-ov-file#install-using-homebrew
 
 Run tests
 ---
+
 ```shell
  mvnd test [-Dtest=TestClassName]
 ```
 
 to run tests in debug mode
+
 ```shell
  mvnd test -Dmaven.surefire.debug [-Dtest=TestClassName]
 ```
@@ -84,6 +90,7 @@ Verify that code structure conforms to the chosen standards (see https://www.arc
 ```
 
 Verify "modulith" mudularity and produce documentation
+
 ```shell
  mvnd test -Dtest=ModularityTest
 ```
