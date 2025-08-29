@@ -2,7 +2,10 @@ Before you start
 ---
 
 Have PostgreSQL up and running on port 5432
->brew install postgresql
+
+```shell
+brew install postgresql
+```
 
 Create 'fss' database and in it schema 'jobs', for example
 
@@ -21,11 +24,16 @@ spring.datasource.password=<password>
 ```
 
 Have local temporal.io server up and running
-Install temporal.io local server
-> brew install temporal
+
+```shell
+brew install temporal
+```
 
 Run instance
-> temporal server start-dev
+
+```shell
+temporal server start-dev
+```
 
 Run the environment check script
 ```shell
