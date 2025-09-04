@@ -2,6 +2,9 @@
 #set -x
 # Verifies the presence of development tools needed for the project
 
+# final status, nonzero if any issue is found
+STATUS=0
+
 # Color definitions for better readability
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -21,6 +24,7 @@ if [[ "$OSTYPE" == "msys"* ]] || [[ "$OSTYPE" == "cygwin"* ]] || [[ "$OSTYPE" ==
 fi
 
 if [[ -z "${JAVA_HOME}" ]]; then
+  STATUS=1
   echo -e "${RED}JAVA_HOME is not set${NC}"
   echo -e "${YELLOW}Set it with: export JAVA_HOME=<JDK_location>${NC}"
 else
@@ -30,6 +34,7 @@ fi
 if [[ -x "${JAVA_HOME}/bin/javac" ]]; then
   echo -e "${GREEN}javac found at ${JAVA_HOME}/bin/javac${NC}"
 else
+  STATUS=1
   echo -e "${RED}javac not found at ${JAVA_HOME}/bin/javac${NC}"
   echo -e "${YELLOW}Please ensure JAVA_HOME points to a valid JDK installation.${NC}"
 fi
@@ -44,6 +49,7 @@ echo  "Checking yq: "
 if command_exists yq; then
   echo -e "\t${GREEN}Found $(yq --version)"
 else
+  STATUS=1
   echo -e "\t${RED}Not found${NC}"
   echo -e "\t${YELLOW}Installation suggestion:${NC}"
   echo "  Install with homebrew: brew install yq"
@@ -53,6 +59,7 @@ echo  "Checking docker: "
 if command_exists docker; then
   echo -e "\t${GREEN}Found $(docker --version)"
 else
+  STATUS=1
   echo -e "\t${RED}Not found${NC}"
   echo -e "\t${YELLOW}Installation suggestion:${NC}"
   echo "  visit https://www.docker.com/ and follow instructions"
@@ -62,6 +69,7 @@ echo "Checking Maven: "
 if command_exists mvn; then
   echo -e "\t${GREEN}Found $(mvn --version | head -n 1 | awk '{print " (" $3 ")"}')"
 else
+  STATUS=1
   echo -e "\t${RED}Not found${NC}"
   echo -e "\t${YELLOW}Installation suggestion:${NC}"
   echo -e "  Install with SDKMAN: sdk install maven"
@@ -71,6 +79,7 @@ echo "Checking Maven Daemon (mvnd): "
 if command_exists mvnd; then
   echo -e "\t${GREEN}Found $(mvnd --version | head -n 1 )"
 else
+  STATUS=1
   echo -e "\t${RED}Not found ${NC}"
   echo -e "\t${YELLOW}Installation suggestion:${NC}"
   echo "  Install with SDKMAN: sdk install mvnd"
@@ -80,6 +89,7 @@ echo "Checking Temporal workflow management : "
 if command_exists temporal; then
   echo -e "\t${GREEN}Found $(temporal --version | head -n 1 )"
 else
+  STATUS=1
   echo -e "\t${RED}Not found ${NC}"
   echo -e "\t${YELLOW}Installation suggestion:${NC}"
   echo "  Install with homebrew: brew install temporal"
@@ -93,6 +103,7 @@ elif command_exists postgres; then
   echo -e "${YELLOW}Found but not running$(postgres -V | awk '{print " (" $3 ")"}')"
   echo "  Start PostgreSQL with: brew services start postgresql"
 else
+  STATUS=1
   echo -e "${RED}Not found${NC}"
   echo -e "${YELLOW}Installation suggestion:${NC}"
   echo "  Install with Homebrew: brew install postgresql"
@@ -110,7 +121,13 @@ fi
     echo "DBeaver is a good choice for a GUI tool for example."
   fi
 
-
 echo "Recommended tools:"
 echo "  DBeaver is a good DB GUI tool https://dbeaver.io/"
 echo "  SDKMAN for managing java tools and SDK-s https://sdkman.io/"
+
+if ( [ "${STATUS}" -eq 0 ] ); then
+	echo -e "${GREEN}All required tools are installed and properly configured.${NC}"
+else
+	echo -e "${RED}Some required tools are missing or not properly configured.${NC}"
+fi
+exit "${STATUS}"
