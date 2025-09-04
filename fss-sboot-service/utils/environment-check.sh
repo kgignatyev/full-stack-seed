@@ -20,6 +20,21 @@ if [[ "$OSTYPE" == "msys"* ]] || [[ "$OSTYPE" == "cygwin"* ]] || [[ "$OSTYPE" ==
   echo "The following checks may not work properly on Windows."
 fi
 
+if [[ -z "${JAVA_HOME}" ]]; then
+  echo -e "${RED}JAVA_HOME is not set${NC}"
+  echo -e "${YELLOW}Set it with: export JAVA_HOME=<JDK_location>${NC}"
+else
+  echo -e "${GREEN}JAVA_HOME is set to: ${JAVA_HOME}${NC}"
+fi
+
+if [[ -x "${JAVA_HOME}/bin/javac" ]]; then
+  echo -e "${GREEN}javac found at ${JAVA_HOME}/bin/javac${NC}"
+else
+  echo -e "${RED}javac not found at ${JAVA_HOME}/bin/javac${NC}"
+  echo -e "${YELLOW}Please ensure JAVA_HOME points to a valid JDK installation.${NC}"
+fi
+
+
 # Check if a command exists
 command_exists() {
   command -v "$1" >/dev/null 2>&1
