@@ -1,8 +1,9 @@
 import {BehaviorSubject, Subscription} from "rxjs";
-import {AuthService} from "@auth0/auth0-angular";
+import {AuthService, User} from "@auth0/auth0-angular";
 import {Router} from "@angular/router";
 import {ContextService} from "./context.service";
-import {Injectable} from "@angular/core";
+import {Injectable, signal, Signal, WritableSignal} from "@angular/core";
+import {V1User} from "../generated/api_client";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ export class AuthzService {
 
   private tokenClaimsSub: Subscription | undefined;
   private userSub: Subscription | undefined;
+  //new useful functionality in Angular
+  public userSignal :WritableSignal<User|null> = signal(null)
 
 
   constructor(public authService: AuthService, private router: Router,
@@ -51,6 +54,11 @@ export class AuthzService {
         this.userSub = authService.user$.subscribe(u => {
           console.info("auth0_user:" + JSON.stringify(u))
           this.userAuth0$.next(u)
+          if( u ){
+            this.userSignal.set( u )
+          }else {
+            this.userSignal.set(null)
+          }
         });
       } else {
         console.info("User logged out")

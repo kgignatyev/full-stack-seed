@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.5</version>
+        <version>3.5.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <name>fss Service</name>
@@ -18,16 +18,16 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jackson.version>2.20.0</jackson.version>
+        <jackson.version>2.20.1</jackson.version>
         <jackson.annotation.version>2.20</jackson.annotation.version>
-        <flyway.version>11.11.2</flyway.version>
-        <kotlin.version>2.2.10</kotlin.version>
+        <flyway.version>11.17.0</flyway.version>
+        <kotlin.version>2.2.21</kotlin.version>
         <kotlin-coroutines.version>1.10.2</kotlin-coroutines.version>
-        <modulith.version>1.4.3</modulith.version>
+        <modulith.version>1.4.4</modulith.version>
         <revision>1.0.0-SNAPSHOT</revision>
 <!--        <spring-security.version>5.8.7</spring-security.version>-->
         <spring-boot-run-jvm-extra></spring-boot-run-jvm-extra>
-        <temporal.version>1.31.0</temporal.version>
+        <temporal.version>1.32.0</temporal.version>
         <java.version>21</java.version>
     </properties>
 
@@ -223,18 +223,18 @@
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
-            <version>2.9.0</version>
+            <version>2.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>6.0.0-M1</version>
+            <version>6.0.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.20.0</version>
+            <version>2.21.0</version>
         </dependency>
         <dependency>
             <groupId>net.logstash.logback</groupId>
@@ -261,7 +261,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.7</version>
+            <version>42.7.8</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
         <dependency>
@@ -288,7 +288,7 @@
         <dependency>
             <groupId>org.casbin</groupId>
             <artifactId>jcasbin</artifactId>
-            <version>1.84.0</version>
+            <version>1.85.1</version>
         </dependency>
         <!--       upgrading transitive dependency from casbin due to its vulnerability -->
         <dependency>
@@ -303,7 +303,7 @@
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast-spring</artifactId>
-            <version>5.5.0</version>
+            <version>5.6.0</version>
         </dependency>
         <dependency>
             <groupId>javax.cache</groupId>
@@ -313,7 +313,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.19.0</version>
+            <version>5.20.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>

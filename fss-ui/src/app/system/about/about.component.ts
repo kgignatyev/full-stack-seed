@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthzService} from "../../services/authz.service";
 
 @Component({
   selector: 'app-about',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   templateUrl: './about.component.html'
 })
 export class AboutComponent {
+
+  constructor( protected authzService: AuthzService ) {
+  }
 
 }
