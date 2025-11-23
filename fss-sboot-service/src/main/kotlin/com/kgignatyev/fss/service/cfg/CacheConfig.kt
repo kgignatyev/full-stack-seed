@@ -1,13 +1,11 @@
 package com.kgignatyev.fss.service.cfg
 
-import com.hazelcast.cache.HazelcastCacheManager
 import com.hazelcast.config.CacheConfig
 import com.hazelcast.config.CacheConfiguration
 import com.hazelcast.config.InMemoryFormat
-import com.hazelcast.config.MapConfig
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer
+import org.springframework.boot.cache.autoconfigure.CacheManagerCustomizer
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.cache.CacheManager
 import org.springframework.context.annotation.Configuration

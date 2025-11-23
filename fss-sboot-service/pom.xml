@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.7</version>
+            <version>4.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <name>fss Service</name>
@@ -18,17 +18,18 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jackson.version>2.20.1</jackson.version>
+        <jackson.version>3.0.2</jackson.version>
         <jackson.annotation.version>2.20</jackson.annotation.version>
-        <flyway.version>11.17.0</flyway.version>
+        <flyway.version>11.17.1</flyway.version>
+        <hazelcast.version>5.6.0</hazelcast.version>
         <kotlin.version>2.2.21</kotlin.version>
         <kotlin-coroutines.version>1.10.2</kotlin-coroutines.version>
-        <modulith.version>1.4.4</modulith.version>
+        <modulith.version>2.0.0</modulith.version>
         <revision>1.0.0-SNAPSHOT</revision>
 <!--        <spring-security.version>5.8.7</spring-security.version>-->
         <spring-boot-run-jvm-extra></spring-boot-run-jvm-extra>
         <temporal.version>1.32.0</temporal.version>
-        <java.version>21</java.version>
+        <java.version>24</java.version>
     </properties>
 
     <dependencyManagement>
@@ -40,7 +41,13 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
+            <dependency>
+                <groupId>tools.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>3.0.2</version>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <dependencies>
@@ -106,7 +113,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+            <artifactId>spring-boot-starter-security-oauth2-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security-oauth2-resource-server</artifactId>
         </dependency>
         <dependency>
             <groupId>io.temporal</groupId>
@@ -116,12 +127,10 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>${flyway.version}</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-database-postgresql</artifactId>
-            <version>${flyway.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -137,12 +146,10 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
-            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
@@ -153,12 +160,14 @@
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-coroutines-core-jvm</artifactId>
-            <version>${kotlin-coroutines.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-coroutines-reactor</artifactId>
-            <version>${kotlin-coroutines.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jspecify</groupId>
+            <artifactId>jspecify</artifactId>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.apache.commons</groupId>-->
@@ -180,29 +189,16 @@
         </dependency>
 
         <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jdk8</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-kotlin</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
+            <groupId>tools.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>tools.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>tools.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -212,7 +208,6 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -261,7 +256,6 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.8</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
         <dependency>
@@ -301,19 +295,20 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.hazelcast</groupId>
-            <artifactId>hazelcast-spring</artifactId>
-            <version>5.6.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hazelcast</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.hazelcast</groupId>-->
+<!--            <artifactId>hazelcast-spring</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
-            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.20.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -385,7 +380,6 @@
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>
-                <version>7.0.0</version>
                 <configuration>
                     <gitDescribe>
                         <dirty>-dirty</dirty>
@@ -398,7 +392,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.4.1</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -428,7 +421,7 @@
                     <dependency>
                         <groupId>org.openrewrite.recipe</groupId>
                         <artifactId>rewrite-spring</artifactId>
-                        <version>6.18.0</version>
+                        <version>6.19.0</version>
                     </dependency>
                 </dependencies>
             </plugin>

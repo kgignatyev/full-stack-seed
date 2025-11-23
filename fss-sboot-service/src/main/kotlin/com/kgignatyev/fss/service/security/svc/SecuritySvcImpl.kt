@@ -7,6 +7,7 @@ import com.kgignatyev.fss.service.common.data.Operation.DELETE
 import com.kgignatyev.fss.service.common.data.Operation.UPDATE
 import com.kgignatyev.fss.service.common.events.CrudEventType
 import com.kgignatyev.fss.service.security.*
+import com.kgignatyev.fss.service.security.CallerInfo.Companion.anonymousCaller
 import com.kgignatyev.fss.service.security.storage.SecurityPoliciesRepo
 import jakarta.annotation.Resource
 import jakarta.transaction.Transactional
@@ -104,6 +105,9 @@ class SecuritySvcImpl(
 
     override fun getCallerInfo(): CallerInfo {
         val auth = SecurityContextHolder.getContext().authentication
+        if( auth == null ) {
+            return anonymousCaller
+        }
         logger.debug("principal:${auth.principal} \n\t details:${auth.details}")
         val principal = auth.principal
         val currentCallerInfo = SecurityContext.callerInfo.get()

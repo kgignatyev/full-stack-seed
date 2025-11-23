@@ -1,8 +1,8 @@
 package com.kgignatyev.fss.service.cfg
 
-import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import tools.jackson.module.kotlin.KotlinModule
 
 
 @Configuration

@@ -29,7 +29,7 @@ class JobSvcImpl(val _jobsRepo: JobsRepo, val jobEventService: JobEventService, 
     }
 
 
-    override fun <S : Job?> save(job: S & Any): S & Any {
+    override fun <S : Job> save(job: S ): S {
         val a = accountsSvc.findById(job.accountId).get()
         if( job.accountId == "my") {
             job.accountId = a.id
