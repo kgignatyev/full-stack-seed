@@ -3,5 +3,7 @@
 
 ./generate-code.sh
 
+set -x
+set -e
 cd out/client
-gradle -i build publishToMavenLocal
+gradle -i clean jar publishToMavenLocal

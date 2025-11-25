@@ -730,9 +730,12 @@ components:
           type: string
         policyExpression:
           type: string
+        userId:
+          type: string
       required:
         - id
         - policyExpression
+        - userId
 
     v1.UsersListResult:
       type: object

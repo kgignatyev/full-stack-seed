@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.7</version>
+        <version>3.5.8</version>
     </parent>
     <name>fss-acceptance-tests</name>
     <groupId>com.kgignatyev.fss</groupId>
@@ -17,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cucumber.version>7.31.0</cucumber.version>
+        <cucumber.version>7.32.0</cucumber.version>
         <jackson.version>2.20.1</jackson.version>
         <jackson.annotation.version>2.20</jackson.annotation.version>
         <httpcomponents.version>5.3</httpcomponents.version>

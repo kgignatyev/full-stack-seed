@@ -11,6 +11,7 @@ class Policy2API:Converter<SecurityPolicy, V1SecurityPolicy> {
         val target = V1SecurityPolicy()
         target.id = source.id
         target.policyExpression = "${source.userId},${source.policy}"
+        target.userId = source.userId
         return target
     }
 }

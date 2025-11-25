@@ -157,9 +157,14 @@ class SecuritySvcImpl(
         return userSvc.save(u)
     }
 
-    override fun isUserAuthorized( userId:String,o: Securable, action: String): Boolean {
+    override fun isUserAuthorized( userId:String, o: Securable, action: String): Boolean {
         val enforcer = authorizationSvc.getEnforcerForUser(userId)
-        return enforcer.enforce(userId, o, action)
+        val enforce = enforcer.enforce(userId, o, action)
+        if( logger.isDebugEnabled) {
+            val currentUser = getCallerInfo().currentUser
+            logger.debug("Enforcer: $enforce - Current user: ${currentUser.id} ${currentUser.name} - Securable $o - Action: $action ")
+        }
+        return enforce
     }
 
     override fun isCurrentUserAuthorized(o: Securable, action: String): Boolean {

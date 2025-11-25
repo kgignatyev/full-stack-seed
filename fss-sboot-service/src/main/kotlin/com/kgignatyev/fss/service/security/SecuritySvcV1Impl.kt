@@ -47,7 +47,7 @@ class SecuritySvcV1Impl(
         val policies: List<SecurityPolicy> = try {
             securitySvc.getSecurityPoliciesForUser(effectiveUserId)
         } catch (ex: Exception) {
-            logger.warn("Error while retrieving security policies for user $effectiveUserId", ex)
+            logger.warn("Error while retrieving security policies for user $effectiveUserId, returning guest user policies", ex)
             SecurityUtils.doAsAdmin {
                 securitySvc.getSecurityPoliciesForUser("guest")
             }
