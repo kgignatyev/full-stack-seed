@@ -1,6 +1,7 @@
 package com.kgignatyev.fss.service.acceptance
 
 
+import com.kgignatyev.fss.service.acceptance.TestsContext.anonymousUser
 import com.kgignatyev.fss.service.acceptance.data.CfgValues
 import com.kgignatyev.fss.service.acceptance.security.SecurityHelper
 import io.cucumber.java.en.Given
@@ -23,7 +24,11 @@ class CommonSteps {
 
     @Given("user {string}")
     fun given_user(userName: String?) {
-          TestsContext.currentUser = securityHelper.getUser(userName)
+        if( "guest" == userName || "anonymous" == userName) {
+            TestsContext.currentUser = anonymousUser
+        }else {
+            TestsContext.currentUser = securityHelper.getUser(userName)
+        }
     }
 
     @Given("user {string} is logged in")

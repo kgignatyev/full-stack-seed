@@ -10,15 +10,14 @@ Feature: System management
       | testUser1 |
       | testUser2 |
 
-  Scenario Outline: application metrics are available only to authorized users
-    Given user "<user>"
-    Then current user has access application metrics "<has access>"
-    Examples:
-      | user       | has access |
-      | testUser1  | no         |
-      | testUser2  | no         |
-      | admin      | yes        |
-      | prometheus | yes        |
+  Scenario: health data is available
+    Given user "guest"
+    Then health checkpoint is available and is UP
+
+  Scenario: prometheus metrics are available
+    Given user "guest"
+    Then prometheus metrics are available
+
 
   Scenario: finalize tests
     Then write custom parameters file for cluecumber

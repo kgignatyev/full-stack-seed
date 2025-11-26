@@ -66,6 +66,19 @@ https://github.com/apache/maven-mvnd?tab=readme-ov-file#install-using-homebrew
  mvnd package -DskipTests
 ```
 
+Metrics
+---
+Health endpoint: unprotected always available
+http://localhost:8080/actuator/health
+
+Micrometer exposes metrics for Prometheus, but can integrate with any 'standard' system
+(see more at https://docs.spring.io/spring-boot/reference/actuator/metrics.html)
+
+http://localhost:8080/actuator/prometheus
+
+**Note**: when deploying behind a load balancer it is a good idea to block access to URL pattern /actuator/* 
+from internet and only access it internally. For example in AWS ALB we can point this URL pattern to a blackhole:
+target group without any members
 
 
 Run tests
@@ -89,7 +102,7 @@ Verify that code structure conforms to the chosen standards (see https://www.arc
  mvnd test -Dtest=ArchUnitTest
 ```
 
-Verify "modulith" mudularity and produce documentation
+Verify "modulith" modularity and produce documentation
 
 ```shell
  mvnd test -Dtest=ModularityTest

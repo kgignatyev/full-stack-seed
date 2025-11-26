@@ -1,6 +1,7 @@
 package com.kgignatyev.fss.service.acceptance
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.kgignatyev.fss.service.acceptance.TestsContext.anonymousUser
 import com.kgignatyev.fss.service.acceptance.data.CfgValues
 import com.kgignatyev.fss_svc.api.fss_client.v1.apis.AccountsServiceV1Api
 import com.kgignatyev.fss_svc.api.fss_client.v1.apis.CompaniesServiceV1Api
@@ -42,6 +43,9 @@ class AuthorizationInterceptor(val cfg: CfgValues, val om:ObjectMapper) : Interc
     private val tokenGuard = "TokenGuard"
 
     fun getToken():String {
+        if(TestsContext.currentUser == anonymousUser) {
+            return "-dummy-token-for-anonymous"
+        }
         synchronized(tokenGuard) {
             //we use file to store token, so we don't have to request it every time
             //Auth0 has limit on number of requests
