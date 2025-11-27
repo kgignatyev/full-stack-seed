@@ -6,7 +6,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      @if (authzSvc.isAuthenticated) {
+      @if (authzSvc.isAuthenticated()) {
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/jobs']">Jobs</a>
         </li>
@@ -26,7 +26,7 @@
           <button class="btn btn-outline-success my-2 my-sm-0" (click)="authzSvc.logout()">Log OUT</button>
         </li>
       }
-      @if (!authzSvc.isAuthenticated) {
+      @if (!authzSvc.isAuthenticated()) {
         <li>
           <button class="btn btn-outline-success my-2 my-sm-0" (click)="authzSvc.login()">Log In</button>
         </li>
@@ -41,8 +41,4 @@
 </div>
 
 <router-outlet></router-outlet>
-<div class="row">
-  <div class="col-md-12">
-    <h6>KGI &copy;2025</h6>
-  </div>
-</div>
+<app-footer></app-footer>

@@ -2,8 +2,10 @@ package com.kgignatyev.fss.service.security.svc
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.kgignatyev.fss.service.BadRequestException
 import com.kgignatyev.fss.service.UnauthorizedException
 import com.kgignatyev.fss.service.common.data.Operation.DELETE
+import com.kgignatyev.fss.service.common.data.Operation.IMPERSONATE
 import com.kgignatyev.fss.service.common.data.Operation.UPDATE
 import com.kgignatyev.fss.service.common.events.CrudEventType
 import com.kgignatyev.fss.service.security.*
@@ -120,7 +122,19 @@ class SecuritySvcImpl(
                         userO.get()
                     }
                     val callerInfo = CallerInfo()
-                    callerInfo.currentUser = realUser
+                    val maybeImpersonate = SecurityContext.httpHeaders.get()[CallerInfo.X_IMPERSONATE]
+                    if(maybeImpersonate != null) {
+                        val userSecurable = User()
+                        userSecurable.id = maybeImpersonate
+                        if( isUserAuthorized( realUser.id , userSecurable , IMPERSONATE)){
+                            val userToImpersonate = userSvc.findById(userSecurable.id).orElseThrow{ BadRequestException("User not found")}
+                            callerInfo.currentUser = userToImpersonate
+                        }else{
+                            throw UnauthorizedException("User is not allowed to perform operation: $IMPERSONATE")
+                        }
+                    }else {
+                        callerInfo.currentUser = realUser
+                    }
                     callerInfo.realUser = realUser
                     callerInfo
                 }
